@@ -11,12 +11,6 @@
 |
 */
 
-/*
-|--------------------------------------------------------------------------
-| Rotas de autenticação de usuários
-|--------------------------------------------------------------------------
-*/
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -27,9 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-	return view('home');
-});
+Route::resource('/', 'LojaController');
+
+Route::post('/addCarrinho','LojaController@adicionarCarrinho');
 
 Route::get('/cliente', function () {
 	return view('loja.cliente');

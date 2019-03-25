@@ -17,7 +17,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Mostra do cliente após o login.
+     * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
