@@ -29,9 +29,7 @@ Route::get('/cliente', function () {
 	return view('loja.cliente');
 });
 
-Route::get('/carrinho', function () {
-	return view('loja.carrinho');
-});
+Route::resource('/carrinho', 'CarrinhoController');
 
 Route::get('/pedidos', function () {
 	return view('loja.pedidos');

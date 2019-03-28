@@ -36,6 +36,10 @@
 		function addCarrinho(codigoProduto) {
 			var quantidade = document.getElementById(codigoProduto).value;
 			var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+			console.log('variaveis antes do POST');
+			console.log(codigoProduto);
+			console.log(quantidade);
+			console.log(CSRF_TOKEN);
 			$.ajax({
 				url: '/addCarrinho',
 				type: 'POST',
@@ -46,11 +50,12 @@
 				},
 				dataType: 'JSON',
 				success: function(data){
-					console.log(data);
-					alert(data.mensagem);
+					console.log(data.vlr);
+					alert(data.msg);
 				},
 				Error: function(data) {
-					console.log(data);
+					console.log(data.vlr);
+					alert(data.msg);
 				}
 			});
 		}
