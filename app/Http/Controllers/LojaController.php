@@ -12,16 +12,10 @@ class LojaController extends Controller
     public function index(){
 
 		$produtos = Produto::paginate(6);
-		$categoria;
-
-		foreach($produtos as $p) {
-			$categoria = Categoria::find($p['codigoCategoria']);
-			$p['nomeCategoria'] = $categoria['nome'];
-		}
 
 		$dados['produtos'] = $produtos;
 
-		return view('home', $dados);
+		return view('loja', $dados);
 	}
 
 	public function adicionarCarrinho(Request $request) {
@@ -29,7 +23,7 @@ class LojaController extends Controller
 		$chave = "carrinho." . $request->codigoProduto;
 
 		try {
-			if (null !== session($chave)) {
+			if (session($chave) !== null) {
 				$novaQuantidade = session($chave) + $request->quantidade;
 				session([$chave => $novaQuantidade]);
 				$response = array(
@@ -55,7 +49,5 @@ class LojaController extends Controller
 			);
 			return response()->json($response);
 		}
-
-		
 	}
 }

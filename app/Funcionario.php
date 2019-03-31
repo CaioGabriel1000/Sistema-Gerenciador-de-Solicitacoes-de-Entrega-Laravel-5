@@ -2,38 +2,55 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Funcionario extends Authenticatable
+/**
+ * @property int $codigoFuncionario
+ * @property string $nome
+ * @property string $email
+ * @property string $senha
+ * @property string $remember_token
+ * @property boolean $administrador
+ * @property string $criacao
+ * @property string $atualizacao
+ * @property int $codigoEstabelecimento
+ * @property Estabelecimento $estabelecimento
+ * @property TelefoneFuncionario[] $telefoneFuncionarios
+ */
+class Funcionario extends Model
 {
-    use Notifiable;
+    /**
+     * The table associated with the model.
+     * 
+     * @var string
+     */
+    protected $table = 'funcionario';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * The primary key for the model.
+     * 
+     * @var string
      */
-    protected $fillable = [
-        'name', 'email', 'password','administrador'
-    ];
+    protected $primaryKey = 'codigoFuncionario';
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $fillable = ['nome', 'email', 'senha', 'remember_token', 'administrador', 'criacao', 'atualizacao', 'codigoEstabelecimento'];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function estabelecimento()
+    {
+        return $this->belongsTo('App\Estabelecimento', 'codigoEstabelecimento', 'codigoEstabelecimento');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function telefoneFuncionarios()
+    {
+        return $this->hasMany('App\TelefoneFuncionario', 'codigoFuncionario', 'codigoFuncionario');
+    }
 }

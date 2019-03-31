@@ -25,6 +25,8 @@ Route::resource('/', 'LojaController');
 
 Route::post('/addCarrinho','LojaController@adicionarCarrinho');
 
+Route::post('/rmvCarrinho','CarrinhoController@removerCarrinho');
+
 Route::get('/cliente', function () {
 	return view('loja.cliente');
 });

@@ -5,36 +5,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $codigoCategoria
+ * @property int $codigoCidade
  * @property string $nome
- * @property Produto[] $produtos
+ * @property string $estado
+ * @property float $valorFrete
+ * @property Bairro[] $bairros
  */
-class Categoria extends Model
+class Cidade extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'categoria';
+    protected $table = 'cidade';
 
     /**
      * The primary key for the model.
      * 
      * @var string
      */
-    protected $primaryKey = 'codigoCategoria';
+    protected $primaryKey = 'codigoCidade';
 
     /**
      * @var array
      */
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'estado', 'valorFrete'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function produtos()
+    public function bairros()
     {
-        return $this->hasMany('App\Produto', 'codigoCategoria', 'codigoCategoria');
+        return $this->hasMany('App\Bairro', 'codigoCidade', 'codigoCidade');
     }
 }
