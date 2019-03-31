@@ -2,13 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int $codigoCliente
- * @property string $nome
+ * @property string $name
  * @property string $email
- * @property string $senha
+ * @property string $password
  * @property string $situacao
  * @property integer $telefone
  * @property string $remember_token
@@ -17,8 +18,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property Pedido[] $pedidos
  * @property TelefoneCliente[] $telefoneClientes
  */
-class Cliente extends Model
+class Cliente extends Authenticatable
 {
+
+	use Notifiable;
+
     /**
      * The table associated with the model.
      * 
@@ -34,9 +38,22 @@ class Cliente extends Model
     protected $primaryKey = 'codigoCliente';
 
     /**
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
-    protected $fillable = ['nome', 'email', 'senha', 'situacao', 'telefone', 'remember_token', 'criacao', 'atualizacao'];
+    protected $fillable = [
+        'name', 'email', 'password', 'situacao', 'telefone'
+	];
+	
+	/**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

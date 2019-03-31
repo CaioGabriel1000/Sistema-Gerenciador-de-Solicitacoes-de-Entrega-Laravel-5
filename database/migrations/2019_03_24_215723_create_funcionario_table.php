@@ -12,18 +12,15 @@ class CreateFuncionarioTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('funcionario', function(Blueprint $table)
-		{
-			$table->integer('codigoFuncionario', true);
-			$table->string('nome');
-			$table->string('email')->unique('email');
-			$table->string('senha');
-			$table->string('remember_token', 100)->nullable();
+		Schema::create('funcionario', function (Blueprint $table) {
+            $table->integer('codigoFuncionario', true);
+			$table->string('name');
+			$table->string('email')->unique();
+			$table->string('password');
 			$table->boolean('administrador');
-			$table->dateTime('criacao')->nullable();
-			$table->dateTime('atualizacao')->nullable();
-			$table->integer('codigoEstabelecimento')->nullable()->default(1)->index('FK_Funcionario_1');
-		});
+			$table->rememberToken();
+            $table->timestamps();
+        });
 	}
 
 

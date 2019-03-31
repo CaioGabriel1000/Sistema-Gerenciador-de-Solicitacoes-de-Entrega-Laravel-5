@@ -17,6 +17,7 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item"><b>Nome: </b>{{ Auth::user()->name }}</li>
 						<li class="list-group-item"><b>Email: </b>{{ Auth::user()->email }}</li>
+						<li class="list-group-item"><b>Telefone: </b>{{ Auth::user()->telefone }}</li>
 						<li class="list-group-item"><b>Data de cadastro: </b>{{ date("d-m-Y H:i", strtotime(Auth::user()->created_at)) }}</li>
 					</ul>
 				</div>

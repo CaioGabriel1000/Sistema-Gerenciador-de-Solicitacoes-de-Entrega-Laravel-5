@@ -11,21 +11,18 @@ class CreateClienteTable extends Migration {
 	 * @return void
 	 */
 	public function up()
-	{
-		Schema::create('cliente', function(Blueprint $table)
-		{
-			$table->integer('codigoCliente', true);
-			$table->string('nome');
-			$table->string('email')->unique('email');
-			$table->string('senha');
-			$table->char('situacao', 1);
+    {
+        Schema::create('cliente', function (Blueprint $table) {
+            $table->integer('codigoCliente',true);
+            $table->string('name');
+			$table->string('email')->unique();
+			$table->string('password');
 			$table->bigInteger('telefone');
-			$table->string('remember_token', 100)->nullable();
-			$table->dateTime('criacao')->nullable();
-			$table->dateTime('atualizacao')->nullable();
-		});
-	}
-
+			$table->char('situacao', 1);
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
 
 	/**
 	 * Reverse the migrations.

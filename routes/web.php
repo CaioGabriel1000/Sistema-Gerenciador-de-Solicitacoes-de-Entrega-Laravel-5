@@ -13,8 +13,6 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 /*
 |--------------------------------------------------------------------------
 | Rotas da Loja
@@ -27,11 +25,9 @@ Route::post('/addCarrinho','LojaController@adicionarCarrinho');
 
 Route::post('/rmvCarrinho','CarrinhoController@removerCarrinho');
 
-Route::get('/cliente', function () {
-	return view('loja.cliente');
-});
-
 Route::resource('/carrinho', 'CarrinhoController');
+
+Route::resource('/cliente', 'ClienteController');
 
 Route::get('/pedidos', function () {
 	return view('loja.pedidos');
