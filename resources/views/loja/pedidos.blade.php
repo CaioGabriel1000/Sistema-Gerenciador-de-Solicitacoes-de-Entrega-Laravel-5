@@ -14,36 +14,59 @@
 					</div>
 				</div>
 				<div class="card-body">
+
+				@if (!empty($pedidos[0]))
+					
+					@foreach ($pedidos as $p)
 					<div class="card">
 						<div class="card-header">
-							<h4>Pedido X</h4>
+							<h4>Pedido {{$p->codigoPedido}}</h4>
 							<p>
-								<b>Situação: Entregue</b>
+								<b>Situação: 
+									@switch($p->situacao)
+										@case('A')
+											Aberto
+											@break
+										@case('F')
+											Fechado
+											@break
+										@default
+											Aberto
+									@endswitch
+								</b>
 							</p>
 						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
-								<li class="box-shadow list-group-item d-flex justify-content-between lh-condensed">
-									<div>
-										<h6 class="my-0">Produto</h6>
-										<small class="text-muted d-none d-md-block">Descrição</small>
-									</div>
-									<span class="text-muted"><b>R$ XX,XX</b></span>
-								</li>
+								@foreach ($p->detalhes as $d)
+									<li class="box-shadow list-group-item d-flex justify-content-between">
+										<small class="text-muted d-none d-md-block">{{$d->quantidade}} X {{$d->produto}}</small>
+										<span class="text-muted"><small>R$ {{$d->valorUnitario}}</small></span>
+									</li>
+								@endforeach
 							</ul>
 						</div>
 						<div class="card-footer justify-content-between">
 							<p>
-								<b>Valor Total: R$ XX,XX</b>
+								<b>Valor Total: R$ {{$p->valorTotal}}</b>
 							</p>
 							<p>
-								<b>Endereço: </b> ...
+								<b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}
 							</p>
 							<p>
-								<b>Observação: </b> ...
+								<b>Observação: </b> {{$p->observacoes}}
 							</p>
 						</div>
 					</div>
+					<br>
+					@endforeach
+
+				@else
+
+					<h6 class="text-center">Nenhum pedido! <a href="{{ url('/') }}">Clique aqui para escolher seus produtos!</a></h6>
+					
+				@endif
+	
 				</div>
 			</div>
 		</div>

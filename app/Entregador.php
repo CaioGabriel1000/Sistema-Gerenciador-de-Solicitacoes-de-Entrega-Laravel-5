@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Entregador extends Model
 {
+	public $timestamps = false;
     /**
      * The table associated with the model.
      * 

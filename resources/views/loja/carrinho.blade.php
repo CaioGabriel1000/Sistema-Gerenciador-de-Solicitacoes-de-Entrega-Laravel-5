@@ -37,10 +37,12 @@
 						<span>Total (R$)
 							<b>{{$valorTotal}}</b>
 						</span>
-						<button type="button" class="btn float-right btn-success">
-							<i class="fas fa-check"></i> 
-							<b>Finalizar Pedido</b>
-						</button>
+						<a href="{{ url('/finalizar_pedido') }}">
+							<button type="button" class="btn float-right btn-success">
+								<i class="fas fa-check"></i> 
+								<b>Finalizar Pedido</b>
+							</button>
+						</a>
 					</div>
 
 				@else

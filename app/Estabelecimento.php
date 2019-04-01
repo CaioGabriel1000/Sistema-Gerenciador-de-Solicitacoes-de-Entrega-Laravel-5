@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Estabelecimento extends Model
 {
+	public $timestamps = false;
     /**
      * The table associated with the model.
      * 

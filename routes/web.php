@@ -29,10 +29,8 @@ Route::resource('/carrinho', 'CarrinhoController');
 
 Route::resource('/cliente', 'ClienteController');
 
-Route::get('/pedidos', function () {
-	return view('loja.pedidos');
-});
+Route::resource('/pedidos', 'PedidoController');
 
-Route::get('/finalizar_pedido', function () {
-	return view('loja.finalizar_pedido');
-});
+Route::get('/finalizar_pedido', 'PedidoController@finalizarPedido');
+
+Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
