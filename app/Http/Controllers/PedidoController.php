@@ -127,7 +127,7 @@ class PedidoController extends Controller
 
 			$request->session()->forget('carrinho');
 
-			redirect('/pedidos');
+			return redirect('pedidos');
 			
 		} else {
 			echo 'Ocorreu um erro ao salvar o pedido! Favor contate o estabelecimento para que isso seja corrigido!';
