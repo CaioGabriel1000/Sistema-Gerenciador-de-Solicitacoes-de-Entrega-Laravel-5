@@ -34,3 +34,11 @@ Route::resource('/pedidos', 'PedidoController');
 Route::get('/finalizar_pedido', 'PedidoController@finalizarPedido');
 
 Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
+
+/*
+|--------------------------------------------------------------------------
+| Rotas do Gerenciamento
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('/gerenciamento/produto', 'Gerenciamento\ProdutoController');
