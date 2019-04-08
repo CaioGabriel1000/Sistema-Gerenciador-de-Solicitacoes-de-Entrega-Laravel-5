@@ -42,3 +42,20 @@ Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
 */
 
 Route::resource('/gerenciamento/produto', 'Gerenciamento\ProdutoController');
+
+Route::resource('/gerenciamento/categoria', 'Gerenciamento\CategoriaController');
+
+Route::get('/gerenciamento/pedido', 'Gerenciamento\PedidoController@index');
+
+Route::get('/gerenciamento/pedido/enviados', 'Gerenciamento\PedidoController@pedidosEnviados');
+
+Route::get('/gerenciamento/pedido/entregues', 'Gerenciamento\PedidoController@pedidosEntregues');
+
+Route::get('/gerenciamento/pedido/cancelados', 'Gerenciamento\PedidoController@pedidosCancelados');
+
+
+Route::post('/cancelarPedido','Gerenciamento\PedidoController@cancelar');
+
+Route::post('/entregarPedido','Gerenciamento\PedidoController@entregar');
+
+Route::post('/finalizarPedido','Gerenciamento\PedidoController@fechar');

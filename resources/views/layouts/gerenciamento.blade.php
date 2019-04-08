@@ -35,12 +35,26 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-justified w-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/gerenciamento') }}">Pedidos</a>
-                </li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Pedidos
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ url('/gerenciamento/pedido') }}">Abertos</a>
+						<a class="dropdown-item" href="{{ url('/gerenciamento/pedido/enviados') }}">Enviados</a>
+						<a class="dropdown-item" href="{{ url('/gerenciamento/pedido/entregues') }}">Entregues</a>
+						<a class="dropdown-item" href="{{ url('/gerenciamento/pedido/cancelados') }}">Cancelados</a>
+					</div>
+				</li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/gerenciamento/produto') }}">Produtos</a>
-                </li>
+				</li>
+				<li class="nav-item">
+                    <a class="nav-link" href="{{ url('/gerenciamento/categoria') }}">Categorias</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/pedido') }}">ADMIN</a>
+				</li>
             </ul>
         </div>
     </nav>

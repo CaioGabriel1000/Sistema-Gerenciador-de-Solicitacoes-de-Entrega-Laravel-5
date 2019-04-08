@@ -1,16 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.gerenciamento')
 
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-md-10">
 			<div class="card">
 				<div class="card-header">
 					<div class="text-center">
-						<div class="d-block mx-auto mb-3">
-							<i class="fas fa-clipboard-list fa-3x"></i>
-						</div>
-						<h1><small>Meus Pedidos</small></h1>
+						<h1><small>Pedidos Cancelados</small></h1>
 					</div>
 				</div>
 				<div class="card-body">
@@ -19,9 +16,9 @@
 					
 					@foreach ($pedidos as $p)
 					<div class="card">
-						<div class="card-header">
+						<div class="card-header d-flex justify-content-between">
 							<h4>Pedido {{$p->codigoPedido}}</h4>
-							<p>
+							<span>
 								<b>Situação: 
 									@switch($p->situacao)
 										@case('A')
@@ -40,21 +37,33 @@
 											Aberto
 									@endswitch
 								</b>
-							</p>
+							</span>
 						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								@foreach ($p->detalhes as $d)
 									<li class="box-shadow list-group-item d-flex justify-content-between">
-										<small class="text-muted d-none d-md-block">{{$d->quantidade}} X {{$d->produto}}</small>
-										<span class="text-muted"><small>R$ {{$d->valorUnitario}}</small></span>
+										<span class="d-none d-md-block">{{$d->quantidade}} X {{$d->produto}}</span>
+										<span>R$ {{$d->valorUnitario}}</span>
 									</li>
 								@endforeach
 							</ul>
 						</div>
 						<div class="card-footer justify-content-between">
-							<p>
-								<b>Valor Total: R$ {{$p->valorTotal}}</b>
+							<p class="d-flex justify-content-between">
+								<span><b>Valor Total: R$ {{$p->valorTotal}}</b></span>
+								<span><b>Forma de pagamento: </b>
+									@switch($p->formaPagamento)
+										@case('D')
+											Dinheiro
+											@break
+										@case('C')
+											Cartão
+											@break
+										@default
+											Dinheiro
+									@endswitch
+								</span>
 							</p>
 							<p>
 								<b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}
@@ -69,7 +78,7 @@
 
 				@else
 
-					<h6 class="text-center">Nenhum pedido! <a href="{{ url('/') }}">Clique aqui para escolher seus produtos!</a></h6>
+					<h6 class="text-center">Nenhum pedido!</h6>
 					
 				@endif
 	
@@ -78,4 +87,5 @@
 		</div>
 	</div>
 </div>
+
 @endsection
