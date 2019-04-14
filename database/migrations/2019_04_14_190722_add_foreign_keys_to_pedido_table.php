@@ -15,6 +15,7 @@ class AddForeignKeysToPedidoTable extends Migration {
 		Schema::table('pedido', function(Blueprint $table)
 		{
 			$table->foreign('codigoCliente', 'FK_Pedido_1')->references('codigoCliente')->on('cliente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('codigoFuncionario', 'FK_Pedido_2')->references('codigoFuncionario')->on('funcionario')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -29,6 +30,7 @@ class AddForeignKeysToPedidoTable extends Migration {
 		Schema::table('pedido', function(Blueprint $table)
 		{
 			$table->dropForeign('FK_Pedido_1');
+			$table->dropForeign('FK_Pedido_2');
 		});
 	}
 

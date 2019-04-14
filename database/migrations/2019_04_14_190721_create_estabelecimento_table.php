@@ -14,14 +14,14 @@ class CreateEstabelecimentoTable extends Migration {
 	{
 		Schema::create('estabelecimento', function(Blueprint $table)
 		{
-			$table->integer('codigoEstabelecimento')->default(1)->primary();
-			$table->string('razaoSocial')->nullable();
-			$table->string('nomeFantasia', 45);
+			$table->integer('codigoEstabelecimento', true);
+			$table->string('razaoSocial', 100)->nullable();
+			$table->string('nomeFantasia', 45)->nullable();
 			$table->bigInteger('cnpj')->nullable();
-			$table->integer('inicioJornadaFuncionamento');
-			$table->integer('fimJornadaFuncionamento');
-			$table->integer('diasFuncionamento');
-			$table->char('identidadeVisual', 1);
+			$table->integer('inicioJornadaFuncionamento')->nullable();
+			$table->integer('fimJornadaFuncionamento')->nullable();
+			$table->integer('diasFuncionamento')->nullable();
+			$table->char('identidadeVisual', 1)->nullable();
 		});
 	}
 

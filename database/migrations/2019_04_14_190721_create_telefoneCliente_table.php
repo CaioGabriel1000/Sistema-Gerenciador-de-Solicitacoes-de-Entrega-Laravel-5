@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTelefoneEntregadorTable extends Migration {
+class CreateTelefoneClienteTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateTelefoneEntregadorTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('telefone_entregador', function(Blueprint $table)
+		Schema::create('telefoneCliente', function(Blueprint $table)
 		{
-			$table->bigInteger('telefoneEntregador');
-			$table->integer('codigoEntregador')->index('FK_telefone_entregador_1');
+			$table->bigInteger('telefoneCliente');
+			$table->integer('codigoCliente')->nullable()->index('FK_telefoneCliente_1');
 		});
 	}
 
@@ -27,7 +27,7 @@ class CreateTelefoneEntregadorTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('telefone_entregador');
+		Schema::drop('telefoneCliente');
 	}
 
 }

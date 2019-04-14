@@ -19,7 +19,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Estabelecimento extends Model
 {
+	/**
+     * Enable or disable timestamps for the model.
+     * 
+     * @var boolean
+     */
 	public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -33,13 +39,6 @@ class Estabelecimento extends Model
      * @var string
      */
     protected $primaryKey = 'codigoEstabelecimento';
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     * 
-     * @var bool
-     */
-    public $incrementing = false;
 
     /**
      * @var array

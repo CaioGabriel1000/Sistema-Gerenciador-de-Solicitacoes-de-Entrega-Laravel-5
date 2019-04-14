@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBairroTable extends Migration {
+class CreateCidadeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateBairroTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('bairro', function(Blueprint $table)
+		Schema::create('cidade', function(Blueprint $table)
 		{
-			$table->integer('codigoBairro', true);
-			$table->string('nome', 45);
+			$table->integer('codigoCidade', true);
+			$table->string('nome', 45)->nullable();
+			$table->char('estado', 2)->nullable();
 			$table->float('valorFrete', 10, 0)->nullable();
-			$table->integer('codigoCidade')->index('FK_Bairro_1');
 		});
 	}
 
@@ -29,7 +29,7 @@ class CreateBairroTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('bairro');
+		Schema::drop('cidade');
 	}
 
 }

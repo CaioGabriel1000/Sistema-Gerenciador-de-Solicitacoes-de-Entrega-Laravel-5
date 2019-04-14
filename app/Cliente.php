@@ -11,10 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property string $password
  * @property string $situacao
- * @property integer $telefone
  * @property string $remember_token
- * @property string $criacao
- * @property string $atualizacao
+ * @property string $created_at
+ * @property string $updated_at
  * @property Pedido[] $pedidos
  * @property TelefoneCliente[] $telefoneClientes
  */
@@ -38,14 +37,10 @@ class Cliente extends Authenticatable
     protected $primaryKey = 'codigoCliente';
 
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'situacao', 'telefone'
-	];
-	
+    protected $fillable = ['name', 'email', 'password', 'situacao', 'remember_token', 'created_at', 'updated_at'];
+
 	/**
      * The attributes that should be hidden for arrays.
      *

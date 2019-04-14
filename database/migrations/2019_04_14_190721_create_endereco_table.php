@@ -15,11 +15,11 @@ class CreateEnderecoTable extends Migration {
 		Schema::create('endereco', function(Blueprint $table)
 		{
 			$table->integer('codigoEndereco', true);
-			$table->string('logradouro', 100);
-			$table->string('numero', 10);
-			$table->string('complemento', 45)->nullable();
+			$table->string('logradouro', 100)->nullable();
+			$table->string('numero', 10)->nullable();
+			$table->string('complemento', 50)->nullable();
 			$table->integer('cep')->nullable();
-			$table->integer('codigoBairro')->index('FK_Endereco_1');
+			$table->integer('codigoBairro')->nullable()->index('FK_Endereco_1');
 		});
 	}
 

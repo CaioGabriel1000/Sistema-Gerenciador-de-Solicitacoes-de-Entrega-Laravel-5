@@ -15,10 +15,10 @@ class CreateEntregadorTable extends Migration {
 		Schema::create('entregador', function(Blueprint $table)
 		{
 			$table->integer('codigoEntregador', true);
-			$table->string('nome');
-			$table->integer('inicioJornadaTrabalho');
-			$table->integer('fimJornadaTrabalho');
-			$table->integer('codigoEstabelecimento')->nullable()->default(1)->index('FK_Entregador_1');
+			$table->string('nome', 45)->nullable();
+			$table->integer('inicioJornadaTrabalho')->nullable();
+			$table->integer('fimJornadaTrabalho')->nullable();
+			$table->integer('codigoEstabelecimento')->nullable()->index('FK_Entregador_1');
 		});
 	}
 

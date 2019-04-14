@@ -15,10 +15,10 @@ class CreateEntregaTable extends Migration {
 		Schema::create('entrega', function(Blueprint $table)
 		{
 			$table->integer('codigoEntrega', true);
-			$table->char('situacao', 1);
-			$table->integer('codigoPedido')->index('FK_Entrega_1');
-			$table->integer('codigoEndereco')->index('FK_Entrega_2');
-			$table->integer('codigoEntregador')->index('FK_Entrega_3');
+			$table->char('situacao', 1)->nullable();
+			$table->integer('codigoPedido')->nullable()->index('FK_Entrega_1');
+			$table->integer('codigoEndereco')->nullable()->index('FK_Entrega_2');
+			$table->integer('codigoEntregador')->nullable()->index('FK_Entrega_3');
 		});
 	}
 

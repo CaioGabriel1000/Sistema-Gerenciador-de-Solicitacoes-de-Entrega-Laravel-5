@@ -2,24 +2,28 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int $codigoFuncionario
- * @property string $nome
+ * @property string $name
  * @property string $email
- * @property string $senha
- * @property string $remember_token
+ * @property string $password
  * @property boolean $administrador
- * @property string $criacao
- * @property string $atualizacao
+ * @property string $situacao
+ * @property string $remember_token
  * @property int $codigoEstabelecimento
+ * @property string $created_at
+ * @property string $updated_at
  * @property Estabelecimento $estabelecimento
- * @property TelefoneFuncionario[] $telefoneFuncionarios
+ * @property Pedido[] $pedidos
  */
-class Funcionario extends Model
+class Funcionario extends Authenticatable
 {
-	public $timestamps = false;
+
+	use Notifiable;
+
     /**
      * The table associated with the model.
      * 
@@ -37,7 +41,16 @@ class Funcionario extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nome', 'email', 'senha', 'remember_token', 'administrador', 'criacao', 'atualizacao', 'codigoEstabelecimento'];
+    protected $fillable = ['name', 'email', 'password', 'administrador', 'situacao', 'remember_token', 'codigoEstabelecimento', 'created_at', 'updated_at'];
+
+	/**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -50,8 +63,8 @@ class Funcionario extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function telefoneFuncionarios()
+    public function pedidos()
     {
-        return $this->hasMany('App\TelefoneFuncionario', 'codigoFuncionario', 'codigoFuncionario');
+        return $this->hasMany('App\Pedido', 'codigoFuncionario', 'codigoFuncionario');
     }
 }

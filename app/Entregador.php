@@ -12,11 +12,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $codigoEstabelecimento
  * @property Estabelecimento $estabelecimento
  * @property Entrega[] $entregas
- * @property TelefoneEntregador[] $telefoneEntregadors
  */
 class Entregador extends Model
 {
+	/**
+     * Enable or disable timestamps for the model.
+     * 
+     * @var boolean
+     */
 	public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -50,13 +55,5 @@ class Entregador extends Model
     public function entregas()
     {
         return $this->hasMany('App\Entrega', 'codigoEntregador', 'codigoEntregador');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function telefoneEntregadors()
-    {
-        return $this->hasMany('App\TelefoneEntregador', 'codigoEntregador', 'codigoEntregador');
     }
 }

@@ -7,17 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $codigoProduto
  * @property string $nome
- * @property string $descricao
  * @property string $sku
  * @property float $valorUnitario
  * @property int $quantidadeEstoque
  * @property int $codigoCategoria
- * @property Categoria $categoria
+ * @property Categorium $categorium
  * @property PedidoProduto[] $pedidoProdutos
  */
 class Produto extends Model
 {
+	/**
+     * Enable or disable timestamps for the model.
+     * 
+     * @var boolean
+     */
 	public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -35,14 +40,14 @@ class Produto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nome', 'descricao', 'sku', 'valorUnitario', 'quantidadeEstoque', 'codigoCategoria'];
+    protected $fillable = ['nome', 'sku', 'valorUnitario', 'quantidadeEstoque', 'codigoCategoria'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categoria()
+    public function categorium()
     {
-        return $this->belongsTo('App\Categoria', 'codigoCategoria', 'codigoCategoria');
+        return $this->belongsTo('App\Categorium', 'codigoCategoria', 'codigoCategoria');
     }
 
     /**

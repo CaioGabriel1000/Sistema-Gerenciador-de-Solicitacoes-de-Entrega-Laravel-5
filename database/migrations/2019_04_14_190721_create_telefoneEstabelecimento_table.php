@@ -12,10 +12,10 @@ class CreateTelefoneEstabelecimentoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('telefone_estabelecimento', function(Blueprint $table)
+		Schema::create('telefoneEstabelecimento', function(Blueprint $table)
 		{
 			$table->bigInteger('telefoneEstabelecimento');
-			$table->integer('codigoEstabelecimento')->index('FK_telefone_estabelecimento_1');
+			$table->integer('codigoEstabelecimento')->nullable()->index('FK_telefoneEstabelecimento_1');
 		});
 	}
 
@@ -27,7 +27,7 @@ class CreateTelefoneEstabelecimentoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('telefone_estabelecimento');
+		Schema::drop('telefoneEstabelecimento');
 	}
 
 }

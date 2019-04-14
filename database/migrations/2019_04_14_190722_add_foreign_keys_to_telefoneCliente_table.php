@@ -12,9 +12,9 @@ class AddForeignKeysToTelefoneClienteTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('telefone_cliente', function(Blueprint $table)
+		Schema::table('telefoneCliente', function(Blueprint $table)
 		{
-			$table->foreign('codigoCliente', 'FK_telefone_cliente_1')->references('codigoCliente')->on('cliente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('codigoCliente', 'FK_telefoneCliente_1')->references('codigoCliente')->on('cliente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 
@@ -26,9 +26,9 @@ class AddForeignKeysToTelefoneClienteTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('telefone_cliente', function(Blueprint $table)
+		Schema::table('telefoneCliente', function(Blueprint $table)
 		{
-			$table->dropForeign('FK_telefone_cliente_1');
+			$table->dropForeign('FK_telefoneCliente_1');
 		});
 	}
 

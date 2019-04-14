@@ -11,13 +11,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TelefoneEstabelecimento extends Model
 {
+	/**
+     * Enable or disable timestamps for the model.
+     * 
+     * @var boolean
+     */
 	public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'telefone_estabelecimento';
+    protected $table = 'telefoneEstabelecimento';
 
     /**
      * @var array

@@ -15,13 +15,13 @@ class CreatePedidoTable extends Migration {
 		Schema::create('pedido', function(Blueprint $table)
 		{
 			$table->integer('codigoPedido', true);
-			$table->float('valorTotal', 10, 0);
-			$table->char('formaPagamento', 1);
-			$table->string('observacoes', 45)->nullable();
-			$table->char('situacao', 1);
-			$table->timestamp('criacao')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->dateTime('atualizacao')->nullable();
-			$table->integer('codigoCliente')->index('FK_Pedido_1');
+			$table->float('valorTotal', 10, 0)->nullable();
+			$table->char('formaPagamento', 1)->nullable();
+			$table->string('observacoes', 50)->nullable();
+			$table->char('situacao', 1)->nullable();
+			$table->integer('codigoCliente')->nullable()->index('FK_Pedido_1');
+			$table->integer('codigoFuncionario')->nullable()->index('FK_Pedido_2');
+			$table->timestamps();
 		});
 	}
 

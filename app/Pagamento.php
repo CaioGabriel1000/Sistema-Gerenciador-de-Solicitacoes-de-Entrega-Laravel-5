@@ -13,7 +13,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pagamento extends Model
 {
+	/**
+     * Enable or disable timestamps for the model.
+     * 
+     * @var boolean
+     */
 	public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
