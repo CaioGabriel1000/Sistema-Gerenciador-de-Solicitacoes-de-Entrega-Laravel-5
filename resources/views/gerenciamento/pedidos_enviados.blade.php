@@ -65,12 +65,18 @@
 									@endswitch
 								</span>
 							</p>
-							<p>
-								<b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}
-							</p>
-							<p>
-								<b>Observação: </b> {{$p->observacoes}}
-							</p>
+							<p class="d-flex justify-content-between">
+									<span><b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}</span>
+									<span><b>Observação: </b> {{$p->observacoes}}</span>
+								</p>
+								<p class="d-flex justify-content-between">
+									<span><b>Cliente: </b> {{$p['detalhes'][0]->cliente}}</span>
+									<span><b>Telefones </b>
+										@foreach (TelefoneCliente::where('codigoCliente', $p['detalhes'][0]->codigoCliente)->get() as $t)
+												-	{{$t->telefoneCliente }}
+										@endforeach
+									</span>
+								</p>
 							<p class="d-flex justify-content-between">
 								<button class="btn btn-danger" onclick="cancelar({{$p->codigoPedido}})">Cancelar</button>
 								<button class="btn btn-success" onclick="finalizar({{$p->codigoPedido}})">Finalizar</button>

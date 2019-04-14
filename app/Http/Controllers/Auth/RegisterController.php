@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Cliente;
+use App\TelefoneCliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -64,12 +65,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Cliente::create([
+		$cliente = new Cliente();
+		$telefone = new TelefoneCliente();
+        $cliente = Cliente::create([
             'name' => $data['name'],
             'email' => $data['email'],
 			'password' => Hash::make($data['password']),
-			'telefone' => $data['telefone'],
 			'situacao' => 'A',
-        ]);
+		]);
+		$telefone = TelefoneCliente::create([
+			'telefoneCliente' => $data['telefone'],
+			'codigoCliente' => $cliente->codigoCliente
+		]);
+		return $cliente;
     }
 }

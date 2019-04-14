@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $codigoPedido
@@ -79,5 +80,30 @@ class Pedido extends Model
     public function pedidoProdutos()
     {
         return $this->hasMany('App\PedidoProduto', 'codigoPedido', 'codigoPedido');
-    }
+	}
+	
+	public static function pedidoCliente(int $codigoPedido)
+	{
+		return DB::table('pedido')
+		->join('pedidoProduto', 'pedido.codigoPedido', '=', 'pedidoProduto.codigoPedido')
+		->join('produto', 'pedidoProduto.codigoProduto', '=', 'produto.codigoProduto')
+		->join('entrega', 'pedido.codigoPedido', '=', 'entrega.codigoPedido')
+		->join('endereco', 'entrega.codigoEndereco', '=', 'endereco.codigoEndereco')
+		->join('bairro', 'bairro.codigoBairro', '=', 'endereco.codigoBairro')
+		->join('cidade', 'cidade.codigoCidade', '=', 'bairro.codigoCidade')
+		->join('cliente', 'cliente.codigoCliente', '=', 'pedido.codigoCliente')
+		->select('cliente.codigoCliente',
+			'cliente.name as cliente',
+			'pedido.codigoPedido',
+			'pedidoProduto.codigoProduto',
+			'pedidoProduto.quantidade',
+			'produto.nome as produto',
+			'produto.valorUnitario',
+			'entrega.situacao',
+			'endereco.*',
+			'bairro.nome as bairro',
+			'cidade.nome as cidade')
+		->where('pedido.codigoPedido', '=', $codigoPedido)
+		->get();
+	}
 }

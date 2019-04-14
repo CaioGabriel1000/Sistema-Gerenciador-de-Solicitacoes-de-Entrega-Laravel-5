@@ -21,7 +21,7 @@ class PedidoController extends Controller
 {
     public function index()
     {
-		$dados['pedidos'] = Pedido::where('situacao', 'A')->orderBy('criacao', 'ASC')->get();
+		$dados['pedidos'] = Pedido::where('situacao', 'A')->orderBy('created_at', 'ASC')->get();
 		foreach ($dados['pedidos'] as $key => $value) {
 			$dados['pedidos'][$key]['detalhes'] = Pedido::pedidoCliente($value->codigoPedido);
 		}
@@ -30,7 +30,7 @@ class PedidoController extends Controller
 
 	public function pedidosCancelados()
     {
-		$dados['pedidos'] = Pedido::where('situacao', 'C')->orderBy('criacao', 'ASC')->get();
+		$dados['pedidos'] = Pedido::where('situacao', 'C')->orderBy('created_at', 'ASC')->get();
 		foreach ($dados['pedidos'] as $key => $value) {
 			$dados['pedidos'][$key]['detalhes'] = Pedido::pedidoCliente($value->codigoPedido);
 		}
@@ -40,7 +40,7 @@ class PedidoController extends Controller
 	public function pedidosEnviados()
     {
 
-		$dados['pedidos'] = Pedido::where('situacao', 'E')->orderBy('criacao', 'ASC')->get();
+		$dados['pedidos'] = Pedido::where('situacao', 'E')->orderBy('created_at', 'ASC')->get();
 
 		foreach ($dados['pedidos'] as $key => $value) {
 			$dados['pedidos'][$key]['detalhes'] = Pedido::pedidoCliente($value->codigoPedido);
@@ -51,7 +51,7 @@ class PedidoController extends Controller
 
 	public function pedidosEntregues()
     {
-		$dados['pedidos'] = Pedido::where('situacao', 'F')->orderBy('criacao', 'ASC')->get();
+		$dados['pedidos'] = Pedido::where('situacao', 'F')->orderBy('created_at', 'ASC')->get();
 		foreach ($dados['pedidos'] as $key => $value) {
 			$dados['pedidos'][$key]['detalhes'] = Pedido::pedidoCliente($value->codigoPedido);
 		}
@@ -63,6 +63,7 @@ class PedidoController extends Controller
 		try {
 			$pedido = Pedido::find($request->codigoPedido);
 			$pedido->situacao = 'C';
+			//$pedido->codigoFuncionario = $request->codigoFuncionario;
 			$pedido->save();
 			$response = array(
 				'status' => 'success',
@@ -83,6 +84,7 @@ class PedidoController extends Controller
 		try {
 			$pedido = Pedido::find($request->codigoPedido);
 			$pedido->situacao = 'E';
+			//$pedido->codigoFuncionario = $request->codigoFuncionario;
 			$pedido->save();
 			$response = array(
 				'status' => 'success',
@@ -103,6 +105,7 @@ class PedidoController extends Controller
 		try {
 			$pedido = Pedido::find($request->codigoPedido);
 			$pedido->situacao = 'F';
+			//$pedido->codigoFuncionario = $request->codigoFuncionario;
 			$pedido->save();
 			$response = array(
 				'status' => 'success',

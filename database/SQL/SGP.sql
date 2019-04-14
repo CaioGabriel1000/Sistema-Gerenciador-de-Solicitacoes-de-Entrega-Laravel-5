@@ -1,3 +1,10 @@
+CREATE TABLE password_resets (
+  email VARCHAR(255),
+  token VARCHAR(255),
+  created_at TIMESTAMP,
+  KEY password_resets_email_index (email)
+);
+
 CREATE TABLE estabelecimento (
     codigoEstabelecimento INT PRIMARY KEY AUTO_INCREMENT,
     razaoSocial VARCHAR(100),
@@ -9,7 +16,7 @@ CREATE TABLE estabelecimento (
     identidadeVisual CHAR(1)
 );
 
-INSERT INTO `estabelecimento` (`codigoEstabelecimento`, `razaoSocial`, `nomeFantasia`, `cnpj`, `inicioJornadaFuncionamento`, `fimJornadaFuncionamento`, `diasFuncionamento`, `identidadeVisual`) VALUES
+INSERT INTO `estabelecimento` VALUES
 (1, 'SGP', 'SGP', 12345678901234, 0, 1440, 127, 'G');
 
 CREATE TABLE funcionario (
@@ -32,6 +39,10 @@ CREATE TABLE entregador (
     fimJornadaTrabalho INT,
     codigoEstabelecimento INT
 );
+
+INSERT INTO `entregador` VALUES
+(1, 'Entregador 1', '0', 1440, 1);
+
 
 CREATE TABLE entrega (
     codigoEntrega INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,7 +68,7 @@ CREATE TABLE bairro (
     codigoCidade INT
 );
 
-INSERT INTO `bairro` (`codigoBairro`, `nome`, `valorFrete`, `codigoCidade`) VALUES
+INSERT INTO `bairro` VALUES
 (1, 'Centro', 1.5, 1),
 (2, 'Lagoinha', 1.5, 1);
 
@@ -68,7 +79,7 @@ CREATE TABLE cidade (
     valorFrete FLOAT
 );
 
-INSERT INTO `cidade` (`codigoCidade`, `nome`, `estado`, `valorFrete`) VALUES
+INSERT INTO `cidade` VALUES
 (1, 'Belo Horizonte', 'MG', 0);
 
 CREATE TABLE pedido (
@@ -100,6 +111,7 @@ CREATE TABLE produto (
     sku VARCHAR(10),
     valorUnitario FLOAT,
     quantidadeEstoque INT,
+	descricao VARCHAR(100),
     codigoCategoria INT
 );
 
@@ -107,6 +119,9 @@ CREATE TABLE categoria (
     codigoCategoria INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45)
 );
+
+INSERT INTO `categoria` VALUES
+(1, 'Categoria 1');
 
 CREATE TABLE pagamento (
     codigoPagamento INT PRIMARY KEY AUTO_INCREMENT,

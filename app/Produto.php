@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $sku
  * @property float $valorUnitario
  * @property int $quantidadeEstoque
+ * @property string $descricao
  * @property int $codigoCategoria
- * @property Categorium $categorium
+ * @property Categoria $categoria
  * @property PedidoProduto[] $pedidoProdutos
  */
 class Produto extends Model
@@ -40,14 +41,14 @@ class Produto extends Model
     /**
      * @var array
      */
-    protected $fillable = ['nome', 'sku', 'valorUnitario', 'quantidadeEstoque', 'codigoCategoria'];
+    protected $fillable = ['nome', 'sku', 'valorUnitario', 'quantidadeEstoque', 'descricao', 'codigoCategoria'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categorium()
+    public function categoria()
     {
-        return $this->belongsTo('App\Categorium', 'codigoCategoria', 'codigoCategoria');
+        return $this->belongsTo('App\Categoria', 'codigoCategoria', 'codigoCategoria');
     }
 
     /**
