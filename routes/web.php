@@ -41,9 +41,15 @@ Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
 |--------------------------------------------------------------------------
 */
 
+Route::get('/gerenciamento', 'Gerenciamento\EntrarController@index')->name('funcionario.login');
+
+Route::post('/gerenciamento', 'Gerenciamento\EntrarController@login')->name('funcionario.login.submit');
+
 Route::resource('/gerenciamento/produto', 'Gerenciamento\ProdutoController');
 
 Route::resource('/gerenciamento/categoria', 'Gerenciamento\CategoriaController');
+
+Route::resource('/gerenciamento/funcionario', 'Gerenciamento\FuncionarioController');
 
 Route::get('/gerenciamento/pedido', 'Gerenciamento\PedidoController@index');
 
@@ -52,7 +58,6 @@ Route::get('/gerenciamento/pedido/enviados', 'Gerenciamento\PedidoController@ped
 Route::get('/gerenciamento/pedido/entregues', 'Gerenciamento\PedidoController@pedidosEntregues');
 
 Route::get('/gerenciamento/pedido/cancelados', 'Gerenciamento\PedidoController@pedidosCancelados');
-
 
 Route::post('/cancelarPedido','Gerenciamento\PedidoController@cancelar');
 

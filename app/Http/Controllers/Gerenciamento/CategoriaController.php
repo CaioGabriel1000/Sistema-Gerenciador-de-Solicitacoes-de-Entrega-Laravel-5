@@ -8,6 +8,16 @@ use App\Categoria;
 
 class CategoriaController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:funcionarioWeb');
+    }
+
 	public function index(){
 		$categorias = Categoria::paginate(10);
 		$dados['categorias'] = $categorias;

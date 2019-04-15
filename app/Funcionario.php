@@ -24,6 +24,8 @@ class Funcionario extends Authenticatable
 
 	use Notifiable;
 
+	protected $guard = 'funcionarioWeb';
+
     /**
      * The table associated with the model.
      * 

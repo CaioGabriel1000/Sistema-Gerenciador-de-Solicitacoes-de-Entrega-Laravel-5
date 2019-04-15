@@ -19,6 +19,16 @@ use Illuminate\Support\Facades\Validator;
 
 class PedidoController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:funcionarioWeb');
+    }
+
     public function index()
     {
 		$dados['pedidos'] = Pedido::where('situacao', 'A')->orderBy('created_at', 'ASC')->get();

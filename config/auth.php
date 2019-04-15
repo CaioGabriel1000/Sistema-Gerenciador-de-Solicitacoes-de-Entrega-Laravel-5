@@ -45,6 +45,17 @@ return [
             'driver' => 'token',
             'provider' => 'clientes',
             'hash' => false,
+		],
+		
+		'funcionarioWeb' => [
+            'driver' => 'session',
+            'provider' => 'funcionarios',
+        ],
+
+        'funcionarioApi' => [
+            'driver' => 'token',
+            'provider' => 'funcionarios',
+            'hash' => false,
         ],
     ],
 
@@ -69,6 +80,11 @@ return [
         'clientes' => [
             'driver' => 'eloquent',
             'model' => App\Cliente::class,
+		],
+		
+		'funcionarios' => [
+            'driver' => 'eloquent',
+            'model' => App\Funcionario::class,
         ],
 
         // 'users' => [
@@ -95,6 +111,12 @@ return [
     'passwords' => [
         'clientes' => [
             'provider' => 'clientes',
+            'table' => 'password_resets',
+            'expire' => 60,
+		],
+		
+		'funcionarios' => [
+            'provider' => 'funcionarios',
             'table' => 'password_resets',
             'expire' => 60,
         ],

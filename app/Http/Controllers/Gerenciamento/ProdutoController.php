@@ -9,6 +9,16 @@ use App\Categoria;
 
 class ProdutoController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:funcionarioWeb');
+    }
+
 	public function index(){
 		$produtos = Produto::paginate(10);
 		$dados['produtos'] = $produtos;
