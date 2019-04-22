@@ -22,6 +22,7 @@
 </head>
 <body>
 <div id="app">
+	@auth('funcionarioWeb')
     <nav class="navbar navbar-expand-md navbar-light bg-faded px-5">
 
         <a class="navbar-brand" href="#">
@@ -53,6 +54,18 @@
                     <a class="nav-link" href="{{ url('/gerenciamento/categoria') }}">Categorias</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/funcionario') }}">Funcionários</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/bairro') }}">Bairros</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/cidade') }}">Cidades</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/estabelecimento') }}">Estabelecimento</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
 											document.getElementById('logout-form').submit();">
@@ -64,7 +77,8 @@
 				</li>
             </ul>
         </div>
-    </nav>
+	</nav>
+	@endauth
 
     <main class="py-4">
         @yield('content')
