@@ -57,6 +57,8 @@ Route::resource('/gerenciamento/cidade', 'Gerenciamento\CidadeController');
 
 Route::resource('/gerenciamento/estabelecimento', 'Gerenciamento\EstabelecimentoController');
 
+Route::resource('/gerenciamento/cliente', 'Gerenciamento\ClienteController');
+
 Route::get('/gerenciamento/pedido', 'Gerenciamento\PedidoController@index');
 
 Route::get('/gerenciamento/pedido/enviados', 'Gerenciamento\PedidoController@pedidosEnviados');

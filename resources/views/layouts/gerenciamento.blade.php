@@ -63,6 +63,9 @@
 					<a class="nav-link" href="{{ url('/gerenciamento/cidade') }}">Cidades</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="{{ url('/gerenciamento/cliente') }}">Clientes</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="{{ url('/gerenciamento/estabelecimento') }}">Estabelecimento</a>
 				</li>
 				<li class="nav-item">
