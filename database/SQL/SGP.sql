@@ -17,7 +17,7 @@ CREATE TABLE estabelecimento (
 );
 
 INSERT INTO `estabelecimento` VALUES
-(1, 'SGP', 'SGP', 12345678901234, 0, 1440, 127, 'G');
+(1, 'SGSE', 'SGSE', 12345678901234, 0, 1440, 127, 'G');
 
 CREATE TABLE funcionario (
     codigoFuncionario INT PRIMARY KEY AUTO_INCREMENT,
