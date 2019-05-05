@@ -25,7 +25,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-faded px-5">
 
         <a class="navbar-brand" href="#">
-            <img src="//placehold.it/500" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="{{url('img/') . '/logo.png'}}" width="30" height="30" class="d-inline-block align-top" alt="">
             {{ config('app.name', 'Laravel') }}
         </a>
 

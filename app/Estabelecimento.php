@@ -67,5 +67,30 @@ class Estabelecimento extends Model
     public function telefoneEstabelecimentos()
     {
         return $this->hasMany('App\TelefoneEstabelecimento', 'codigoEstabelecimento', 'codigoEstabelecimento');
-    }
+	}
+
+	/**
+	 * Transform hours like "1:45" into the total number of minutes, "105"
+	 * 
+     * @return int
+     */
+	function hoursToMinutes($hours) { 
+		$minutes = 0;
+		if (strpos($hours, ':') !== false) {
+			// Split hours and minutes.
+			list($hours, $minutes) = explode(':', $hours);
+		}
+		return $hours * 60 + $minutes;
+	}
+
+	/**
+	 * Transform hours like "1:45" into the total number of minutes, "105"
+	 * 
+     * @return string
+     */
+	function minutesToHours($minutes) {
+		$hours = (int)($minutes / 60);
+		$minutes -= $hours * 60;
+		return sprintf("%d:%02.0f", $hours, $minutes);
+	}
 }

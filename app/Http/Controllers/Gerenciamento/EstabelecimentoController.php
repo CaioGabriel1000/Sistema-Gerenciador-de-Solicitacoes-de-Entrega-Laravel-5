@@ -22,6 +22,8 @@ class EstabelecimentoController extends Controller
 	public function index(){
 		$id = 1;
 		$estabelecimento = Estabelecimento::find($id);
+		$estabelecimento->fimJornadaFuncionamento = $estabelecimento->minutesToHours($estabelecimento->fimJornadaFuncionamento);
+		$estabelecimento->inicioJornadaFuncionamento = $estabelecimento->minutesToHours($estabelecimento->inicioJornadaFuncionamento);
 		return view('gerenciamento.editar_estabelecimento', compact('estabelecimento', 'id'));
 	}
 
@@ -38,10 +40,23 @@ class EstabelecimentoController extends Controller
 		$estabelecimento = Estabelecimento::find($id);
 		$estabelecimento->razaoSocial = $request->get('razaoSocial');
 		$estabelecimento->nomeFantasia = $request->get('nomeFantasia');
-		$estabelecimento->cnpj = $request->get('cnpj');
-		$estabelecimento->inicioJornadaFuncionamento = $request->get('inicioJornadaFuncionamento');
-		$estabelecimento->fimJornadaFuncionamento = $request->get('fimJornadaFuncionamento');
-		$estabelecimento->diasFuncionamento = $request->get('diasFuncionamento');
+		$estabelecimento->cnpj = (int) preg_replace('/[^0-9]/', '', $request->get('cnpj'));
+		$estabelecimento->inicioJornadaFuncionamento = $estabelecimento->hoursToMinutes($request->get('inicioJornadaFuncionamento'));
+		$estabelecimento->fimJornadaFuncionamento = $estabelecimento->hoursToMinutes($request->get('fimJornadaFuncionamento'));
+		
+		if ($request->hasFile('imagemLogomarca')) {
+			$nomeArquivo = "logo.png";
+			$request->file('imagemLogomarca')->move(public_path('img/'), $nomeArquivo);
+		}
+
+		$estabelecimento->diasFuncionamento = 0;
+
+		$dias = $request->get('diasFuncionamento');
+
+		foreach ($dias as $key => $value) {
+			$estabelecimento->diasFuncionamento = $estabelecimento->diasFuncionamento + $value;
+		}
+
 		$estabelecimento->identidadeVisual = $request->get('identidadeVisual');
 
 		$arquivo = public_path() . '/css/bootstrap.min.css';

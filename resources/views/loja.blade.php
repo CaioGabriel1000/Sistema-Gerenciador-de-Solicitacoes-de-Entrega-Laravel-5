@@ -7,7 +7,7 @@
 			@foreach ($produtos as $p)
 			<div class="col-md-4 p-2">
 				<div class="card">
-				<img src="{{ url('img/produtos/') . '/' . md5($p->codigoProduto) . '.png' }}" class="card-img-top h-100 w-50 mx-auto d-block" alt="Nome produto">
+				<img src="{{ url('img/produtos/') . '/' . md5($p->codigoProduto) . '.png' }}" class="card-img-top h-auto w-100% mx-auto d-block" alt="Nome produto">
 					<div class="card-body">
 						<h5 class="card-title">{{$p->nome}}</h5>
 						<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
