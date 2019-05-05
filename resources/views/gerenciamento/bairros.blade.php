@@ -36,6 +36,7 @@
 					<th>Código bairro</th>
 					<th>Nome</th>
 					<th>Cidade</th>
+					<th>Valor Frete</th>
 					<th>Opções</th>
 					<th></th>
 				</tr>
@@ -48,6 +49,7 @@
 					<td>{{$b->codigoBairro}}</td>
 					<td>{{$b->nome}}</td>
 					<td>{{$b->Cidade->nome}}</td>
+					<td>R$ {{$b->valorFrete}}</td>
 					<td>
 						<a href="{{url('/gerenciamento/bairro/').'/'.$b->codigoBairro.'/edit'}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><small>	Editar</small></a>
 					</td>

@@ -61,6 +61,11 @@
 			</select>
 		</div>
 
+		<div class="form-group mb-3">
+			<label for="nome">Valor do frete</label>
+			<input type="number" step="0.01" min=0 class="form-control" id="valorFrete" name="valorFrete" value="{{$bairro->valorFrete}}" placeholder="Digite o valor do frete para entregas nesse bairro..." required>
+		</div>
+
 		<button type="submit" class="btn btn-primary">Atualizar</button>
 	</form>
 </div>

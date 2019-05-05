@@ -41,10 +41,12 @@ class BairroController extends Controller
 		$this->validate($request, [
 			'nome' => 'required',
 			'codigoCidade' => 'required|exists:cidade',
+			'valorFrete' => 'required|numeric',
 		]);
 		$bairro = new Bairro();
 		$bairro->nome = $request->input('nome');
 		$bairro->codigoCidade = $request->input('codigoCidade');
+		$bairro->valorFrete = $request->input('valorFrete');
 		try {
 			$bairro->save();
 			return redirect('gerenciamento/bairro/create')->with('success','Bairro cadastrado com sucesso!');
@@ -57,10 +59,12 @@ class BairroController extends Controller
 		$this->validate($request, [
 			'nome' => 'required',
 			'codigoCidade' => 'required|exists:cidade',
+			'valorFrete' => 'required|numeric',
 		]);
 		$bairro = Bairro::find($id);
 		$bairro->nome = $request->input('nome');
 		$bairro->codigoCidade = $request->input('codigoCidade');
+		$bairro->valorFrete = $request->input('valorFrete');
 		try {
 			$bairro->save();
 			return redirect('gerenciamento/bairro/'.$id.'/edit')->with('success','Bairro atualizado com sucesso!');
