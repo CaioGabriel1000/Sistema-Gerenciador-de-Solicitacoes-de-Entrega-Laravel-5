@@ -45,7 +45,12 @@
 
 		<div class="form-group mb-3">
 			<label for="nome">Nome</label>
-		<input type="text" class="form-control" id="nome" name="nome" value="{{$cidade->nome}}" placeholder="Digite o nome do produto..." required>
+			<input type="text" class="form-control" id="nome" name="nome" value="{{$cidade->nome}}" placeholder="Digite o nome da cidade..." required>
+		</div>
+
+		<div class="form-group mb-3">
+			<label for="nome">Valor do frete</label>
+			<input type="number" step="0.01" min=0 class="form-control" id="valorFrete" name="valorFrete" value="{{$cidade->valorFrete}}" placeholder="Digite o valor do frete para entregas nessa cidade..." required>
 		</div>
 
 		<button type="submit" class="btn btn-primary">Atualizar</button>

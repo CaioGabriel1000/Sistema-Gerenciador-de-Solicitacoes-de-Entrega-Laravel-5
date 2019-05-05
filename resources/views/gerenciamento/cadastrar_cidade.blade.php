@@ -46,6 +46,11 @@
 			<input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome da cidade..." required>
 		</div>
 
+		<div class="form-group mb-3">
+			<label for="nome">Valor do frete</label>
+			<input type="number" step="0.01" min=0 class="form-control" id="valorFrete" name="valorFrete" placeholder="Digite o valor do frete para entregas nessa cidade..." required>
+		</div>
+
 		<button type="submit" class="btn btn-primary">Cadastrar</button>
 
 	</form>

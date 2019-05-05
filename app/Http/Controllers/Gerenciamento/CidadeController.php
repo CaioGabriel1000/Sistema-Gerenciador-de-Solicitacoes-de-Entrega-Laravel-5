@@ -36,9 +36,11 @@ class CidadeController extends Controller
 	public function store(Request $request){
 		$this->validate($request, [
 			'nome' => 'required',
+			'valorFrete' => 'required|numeric'
 		]);
 		$cidade = new Cidade();
 		$cidade->nome = $request->input('nome');
+		$cidade->valorFrete = $request->input('valorFrete');
 		try {
 			$cidade->save();
 			return redirect('gerenciamento/cidade/create')->with('success','Cidade cadastrada com sucesso!');
@@ -50,9 +52,11 @@ class CidadeController extends Controller
 	public function update(Request $request, $id){
 		$this->validate($request, [
 			'nome' => 'required',
+			'valorFrete' => 'required|numeric'
 		]);
 		$cidade = Cidade::find($id);
 		$cidade->nome = $request->get('nome');
+		$cidade->valorFrete = $request->get('valorFrete');
 		try {
 			$cidade->save();
 			return redirect('gerenciamento/cidade/'.$id.'/edit')->with('success','Cidade atualizada com sucesso!');

@@ -35,6 +35,7 @@
 				<tr>
 					<th>Código cidade</th>
 					<th>Nome</th>
+					<th>Valor Frete</th>
 					<th>Opções</th>
 					<th></th>
 				</tr>
@@ -46,6 +47,7 @@
 				<tr>
 					<td>{{$c->codigoCidade}}</td>
 					<td>{{$c->nome}}</td>
+					<td>R$ {{$c->valorFrete}}</td>
 					<td>
 						<a href="{{url('/gerenciamento/cidade/').'/'.$c->codigoCidade.'/edit'}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><small>	Editar</small></a>
 					</td>
