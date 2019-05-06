@@ -35,6 +35,8 @@ Route::get('/finalizar_pedido', 'PedidoController@finalizarPedido');
 
 Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
 
+Route::post('/addPedidoRetirar','PedidoController@salvarPedidoRetirar');
+
 /*
 |--------------------------------------------------------------------------
 | Rotas do Gerenciamento

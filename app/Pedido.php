@@ -87,10 +87,10 @@ class Pedido extends Model
 		return DB::table('pedido')
 		->join('pedidoProduto', 'pedido.codigoPedido', '=', 'pedidoProduto.codigoPedido')
 		->join('produto', 'pedidoProduto.codigoProduto', '=', 'produto.codigoProduto')
-		->join('entrega', 'pedido.codigoPedido', '=', 'entrega.codigoPedido')
-		->join('endereco', 'entrega.codigoEndereco', '=', 'endereco.codigoEndereco')
-		->join('bairro', 'bairro.codigoBairro', '=', 'endereco.codigoBairro')
-		->join('cidade', 'cidade.codigoCidade', '=', 'bairro.codigoCidade')
+		->leftJoin('entrega', 'pedido.codigoPedido', '=', 'entrega.codigoPedido')
+		->leftJoin('endereco', 'entrega.codigoEndereco', '=', 'endereco.codigoEndereco')
+		->leftJoin('bairro', 'bairro.codigoBairro', '=', 'endereco.codigoBairro')
+		->leftJoin('cidade', 'cidade.codigoCidade', '=', 'bairro.codigoCidade')
 		->join('cliente', 'cliente.codigoCliente', '=', 'pedido.codigoCliente')
 		->select('cliente.codigoCliente',
 			'cliente.name as cliente',

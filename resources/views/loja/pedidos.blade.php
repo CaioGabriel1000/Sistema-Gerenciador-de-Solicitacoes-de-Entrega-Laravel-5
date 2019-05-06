@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<meta http-equiv="refresh" content="30"/>
+
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
@@ -21,25 +23,34 @@
 					<div class="card">
 						<div class="card-header">
 							<h4>Pedido {{$p->codigoPedido}}</h4>
-							<p>
-								<b>Situação: 
-									@switch($p->situacao)
-										@case('A')
-											Aberto
-											@break
-										@case('E')
-											Em processo de entrega
-											@break
-										@case('F')
-											Entregue
-											@break
-										@case('C')
-											Cancelado
-											@break
-										@default
-											Aberto
-									@endswitch
-								</b>
+							<p class="d-flex justify-content-between">
+								<span>
+									<b>Situação: 
+										@switch($p->situacao)
+											@case('A')
+												Aberto
+												@break
+											@case('E')
+												Em processo de entrega
+												@break
+											@case('F')
+												Entregue
+												@break
+											@case('C')
+												Cancelado
+												@break
+											@default
+												Aberto
+										@endswitch
+									</b>
+								</span>
+								<span>
+									@if ($p->updated_at == NULL)
+										{{ date("d-m-Y H:i", strtotime($p->created_at)) }}
+									@else
+										{{ date("d-m-Y H:i", strtotime($p->updated_at)) }}
+									@endif
+								</span>
 							</p>
 						</div>
 						<div class="card-body">
@@ -57,7 +68,12 @@
 								<b>Valor Total: R$ {{$p->valorTotal}}</b>
 							</p>
 							<p>
-								<b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}
+								@if ($p['detalhes'][0]->logradouro == NULL)
+									Cliente vai retirar pedido no estabelecimento.
+								@else
+									<b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}	
+								@endif
+								
 							</p>
 							<p>
 								<b>Observação: </b> {{$p->observacoes}}

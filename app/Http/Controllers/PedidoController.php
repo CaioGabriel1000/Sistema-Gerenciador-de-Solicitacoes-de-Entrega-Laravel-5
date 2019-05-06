@@ -73,6 +73,18 @@ class PedidoController extends Controller
 				$valorTotal += Produto::find($codigoProduto)->valorUnitario * $quantidade;
 			}
 
+			$cidade = Cidade::find($request->codigoCidade);
+
+			if ($cidade->valorFrete != NULL) {
+				$valorTotal += $cidade->valorFrete;
+			}
+
+			$bairro = Bairro::find($request->codigoBairro);
+
+			if ($bairro->codigoBairro != NULL) {
+				$valorTotal += $bairro->valorFrete;
+			}
+
 			$pedido = array(
 				'valorTotal' => $valorTotal,
 				'formaPagamento' => $request->formaPagamento,
@@ -124,6 +136,50 @@ class PedidoController extends Controller
 			);
 
 			Pagamento::create($pagamento);
+
+			$request->session()->forget('carrinho');
+
+			return redirect('pedidos');
+			
+		} else {
+			echo 'Ocorreu um erro ao salvar o pedido! Favor contate o estabelecimento para que isso seja corrigido!';
+		}
+	}
+	
+	public function salvarPedidoRetirar(Request $request)
+    {
+
+		if (session()->has('carrinho')) {
+
+			$valorTotal = 0;
+
+			foreach (session('carrinho') as $codigoProduto => $quantidade) {
+				$valorTotal += Produto::find($codigoProduto)->valorUnitario * $quantidade;
+			}
+
+			$pedido = array(
+				'valorTotal' => $valorTotal,
+				'formaPagamento' => $request->formaPagamentoRetirar,
+				'observacoes' => $request->observacoesRetirar,
+				'situacao' => 'A',
+				'criacao' => NOW(),
+				'atualizacao' => NOW(),
+				'codigoCliente' => Auth::user()->codigoCliente,
+			);
+
+			$codigoPedido = Pedido::create($pedido)->codigoPedido;
+
+			$pedidoProduto;
+
+			foreach (session('carrinho') as $codigoProduto => $quantidade) {
+				$pedidoProduto = array(
+					'codigoProduto' => $codigoProduto,
+					'codigoPedido' => $codigoPedido,
+					'quantidade' => $quantidade,
+				);
+
+				PedidoProduto::create($pedidoProduto);
+			}
 
 			$request->session()->forget('carrinho');
 

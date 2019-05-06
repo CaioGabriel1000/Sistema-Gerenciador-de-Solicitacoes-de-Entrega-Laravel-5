@@ -1,6 +1,7 @@
 @extends('layouts.gerenciamento')
 
 @section('content')
+<meta http-equiv="refresh" content="30"/>
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-10">
@@ -16,28 +17,37 @@
 					
 					@foreach ($pedidos as $p)
 					<div class="card">
-						<div class="card-header d-flex justify-content-between">
+						<div class="card-header">
 							<h4>Pedido {{$p->codigoPedido}}</h4>
-							<span>
-								<b>Situação: 
-									@switch($p->situacao)
-										@case('A')
-											Aberto
-											@break
-										@case('E')
-											Em processo de entrega
-											@break
-										@case('F')
-											Entregue
-											@break
-										@case('C')
-											Cancelado
-											@break
-										@default
-											Aberto
-									@endswitch
-								</b>
-							</span>
+							<p class="d-flex justify-content-between">
+								<span>
+									<b>Situação: 
+										@switch($p->situacao)
+											@case('A')
+												Aberto
+												@break
+											@case('E')
+												Em processo de entrega
+												@break
+											@case('F')
+												Entregue
+												@break
+											@case('C')
+												Cancelado
+												@break
+											@default
+												Aberto
+										@endswitch
+									</b>
+								</span>
+								<span>
+									@if ($p->updated_at == NULL)
+										{{ date("d-m-Y H:i", strtotime($p->created_at)) }}
+									@else
+										{{ date("d-m-Y H:i", strtotime($p->updated_at)) }}
+									@endif
+								</span>
+							</p>
 						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
@@ -66,7 +76,11 @@
 								</span>
 							</p>
 							<p class="d-flex justify-content-between">
+								@if ($p['detalhes'][0]->logradouro == NULL)
+									Cliente retirou pedido no estabelecimento.
+								@else
 									<span><b>Endereço: </b> {{$p['detalhes'][0]->logradouro}}, Nº {{$p['detalhes'][0]->numero}}, Bairro {{$p['detalhes'][0]->bairro}}, Cidade {{$p['detalhes'][0]->cidade}}</span>
+								@endif
 									<span><b>Observação: </b> {{$p->observacoes}}</span>
 								</p>
 								<p class="d-flex justify-content-between">
