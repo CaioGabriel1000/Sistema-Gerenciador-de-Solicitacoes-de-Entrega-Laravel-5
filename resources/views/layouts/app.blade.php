@@ -2,12 +2,36 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ config('app.name', 'Laravel') }}</title>
+	<link rel="icon" href="{{ asset('img/logo.png') }}">
+	<meta name="description" content="{{ config('app.name', 'Laravel') }} - app de delivery">
+	<meta name="theme-color" content="#FFFFFF" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+	
+	<!-- PWA Manifest -->
+	<link rel="manifest" href="{{ asset('manifest.json') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+	<!-- iOS meta tags and icons -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Laravel') }}">
+	<link rel="apple-touch-icon" href="{{ asset('img/logo.png') }}">
+
+	<!-- Service Worker -->
+	<script>
+		// Register service worker.
+		if ('serviceWorker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('{{ asset('js/service-worker.js') }}')
+				.then((reg) => {
+				console.log('Service worker registered.', reg);
+				});
+		});
+		}
+	</script>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
