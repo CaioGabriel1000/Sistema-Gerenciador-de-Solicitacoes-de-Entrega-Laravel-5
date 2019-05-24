@@ -25,7 +25,7 @@
 		// Register service worker.
 		if ('serviceWorker' in navigator) {
 		window.addEventListener('load', () => {
-			navigator.serviceWorker.register('{{ asset('js/service-worker.js') }}')
+			navigator.serviceWorker.register('{{ asset('/service-worker.js') }}')
 				.then((reg) => {
 				console.log('Service worker registered.', reg);
 				});
