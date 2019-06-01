@@ -3,14 +3,14 @@
 @section('content')
 
 	<div class="container">
-		<div class="container-fluid mobile-card-container">
+		<div class="container-fluid mobile-card-container cardajust">
 			<div class="row text-center flex-nowrap flex-sm-wrap">
 			@foreach ($categorias as $c)
 				<form method="POST" action="/buscar" id="buscar-{{$c->codigoCategoria}}" name="buscar-{{$c->codigoCategoria}}">
 				@csrf
 				<input type="hidden" name="codigoCategoria" id="codigoCategoria" value="{{$c->codigoCategoria}}">
 					<div class="p-2">
-						<div class="card" onClick="document.forms['buscar-{{$c->codigoCategoria}}'].submit();">
+						<div class="cardcat" onClick="document.forms['buscar-{{$c->codigoCategoria}}'].submit();">
 							<div class="card-body">
 								<div class="row justify-content-center">
 									@if ($filtrado == $c->codigoCategoria)

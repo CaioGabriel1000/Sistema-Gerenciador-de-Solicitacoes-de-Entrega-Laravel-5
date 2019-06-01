@@ -1,0 +1,19 @@
+.cardcat{
+    width: 100px;
+    box-shadow: 0px 1px 5px 1px rgb(98, 15, 5);
+    box-sizing: border-box;
+    height: 105px;
+    background-color: white;
+    border-radius: 10px;
+}
+.navbar{
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 1px 2px rgb(109, 18, 10);
+    z-index: 1000;
+    border: none;
+}
+.cardajust{
+    margin-top: 60px;
+}
