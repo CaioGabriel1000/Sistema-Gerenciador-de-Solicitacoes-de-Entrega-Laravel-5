@@ -16,8 +16,11 @@
 				@if (!empty($pedidos[0]))
 					
 					@foreach ($pedidos as $p)
-					<div class="card">
+					<div class="card" id="pedido_{{$p->codigoPedido}}">
 						<div class="card-header">
+							<span class="float-right">
+								<a href="#" onclick="createPDF({{$p->codigoPedido}});"><i class="fas fa-print"></i></a>
+							</span>
 							<h4>Pedido {{$p->codigoPedido}}</h4>
 							<p class="d-flex justify-content-between">
 								<span>

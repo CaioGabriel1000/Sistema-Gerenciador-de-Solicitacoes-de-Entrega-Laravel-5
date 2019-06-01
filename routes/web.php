@@ -23,6 +23,8 @@ Route::resource('/', 'LojaController');
 
 Route::post('/addCarrinho','LojaController@adicionarCarrinho');
 
+Route::post('/buscar','LojaController@buscarCategoria');
+
 Route::post('/rmvCarrinho','CarrinhoController@removerCarrinho');
 
 Route::resource('/carrinho', 'CarrinhoController');
@@ -42,6 +44,8 @@ Route::post('/addPedidoRetirar','PedidoController@salvarPedidoRetirar');
 | Rotas do Gerenciamento
 |--------------------------------------------------------------------------
 */
+
+Route::get('/home', 'Gerenciamento\PedidoController@index');
 
 Route::get('/gerenciamento', 'Gerenciamento\EntrarController@index')->name('funcionario.login');
 

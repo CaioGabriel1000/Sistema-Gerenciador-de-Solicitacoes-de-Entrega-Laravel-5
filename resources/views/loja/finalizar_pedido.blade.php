@@ -15,12 +15,12 @@
 						<ul class="nav nav-pills" id="pills-tab" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link" id="form-retirar-tab" data-toggle="pill" href="#form-retirar" role="tab" aria-controls="form-retirar" aria-selected="false">
-								Retirar no estabelecimento 
+								<small>Retirar no estabelecimento </small>
 								</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link active show" id="form-entregar-tab" data-toggle="pill" href="#form-entregar" role="tab" aria-controls="form-entregar" aria-selected="true">
-								Entregar em domicílio 
+								<small>Entregar em domicílio </small>
 								</a>
 							</li>
 						</ul>
@@ -51,30 +51,36 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="form-label-group col-sm-8 p-2">
-										<label for="logradouro">Logradouro</label>
-										<input id="logradouro" name="logradouro" class="form-control" placeholder="Logradouro" required type="text" maxlength="45">
-									</div>
-
-									<div class="form-label-group col p-2">
-										<label for="numero">Número</label>
-										<input id="numero" name="numero" class="form-control" placeholder="Número" required type="text" maxlength="10">
+									<div class="col p-2">
+										<label for="logradouro">Rua</label>
+										<input id="logradouro" name="logradouro" class="form-control" placeholder="" required type="text" maxlength="45">
 									</div>
 								</div>
 								<div class="row">
+									<div class="col p-2">
+										<label for="numero">Número</label>
+										<input id="numero" name="numero" class="form-control" placeholder="" required type="text" maxlength="10">
+									</div>
 									<div class="col p-2">
 										<label for="complemento">Complemento</label>
-										<input id="complemento" name="complemento" class="form-control" placeholder="Complemento" type="text" maxlength="45">
-									</div>
-									<div class="col p-2">
-										<label for="observacoes">Observações</label>
-										<input id="observacoes" name="observacoes" class="form-control" placeholder="Observações" type="text" maxlength="45">
+										<input id="complemento" name="complemento" class="form-control" placeholder="" type="text" maxlength="45">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col p-2">
-										<label for="valorTotal">Valor Total</label>
-										<input id="valorTotal" class="form-control" type="number" placeholder="R$ {{$valorTotal}}" value="{{$valorTotal}}" readonly>
+										<label for="observacoes">Precisa de troco? Para qual valor?</label>
+										<input id="observacoes" name="observacoes" class="form-control" placeholder="" type="text" maxlength="45">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col p-2">
+                                        <label for="valorTotal">Valor Total</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+				                                <span class="input-group-text" id="basic-addon1">R$</span>
+			                                </div>
+										    <input id="valorTotal" class="form-control" type="number" placeholder="{{$valorTotal}}" value="{{$valorTotal}}" readonly>
+                                       </div>
 									</div>
 									<div class="col p-2">
 										<label for="formaPagamento">Forma de pagamento</label>
@@ -111,8 +117,13 @@
 								</div>
 								<div class="row">
 									<div class="col p-2">
-										<label for="valorTotalRetirar">Valor Total</label>
-										<input class="form-control" type="text" placeholder="R$ {{$valorTotal}}" readonly>
+                                        <label for="valorTotal">Valor Total</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+				                                <span class="input-group-text" id="basic-addon1">R$</span>
+			                                </div>
+										    <input id="valorTotal" class="form-control" type="number" placeholder="{{$valorTotal}}" value="{{$valorTotal}}" readonly>
+                                       </div>
 									</div>
 									<div class="col p-2">
 										<label for="formaPagamentoRetirar">Forma de pagamento</label>
@@ -165,3 +176,4 @@
 	}
 </script>
 @endsection
+

@@ -52,15 +52,15 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary btn-block">
                                     {{ __('Entrar') }}
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Esqueceu sua senha?') }}
-                                </a>
                             </div>
+                        </div>
+                        <br>
+						<div class="form-group row justify-content-center"">
+                            <a class="btn btn-link" href="/register">Ainda não tem uma conta? <br> Clique aqui!</a>
                         </div>
                     </form>
                 </div>

@@ -36,7 +36,7 @@
 	
 @endif
 
-<h1 class="mb-3">Editar estabelecimento</h1>
+<h1 class="mb-3">Configurar estabelecimento</h1>
 <form method="POST" enctype="multipart/form-data" action="{{ action('Gerenciamento\EstabelecimentoController@update',$id) }}">
 
 		@csrf
