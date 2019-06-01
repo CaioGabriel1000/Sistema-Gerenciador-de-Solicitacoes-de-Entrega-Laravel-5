@@ -17,3 +17,9 @@
 .cardajust{
     margin-top: 60px;
 }
+.card img{
+    border-radius: 15px;
+}
+#logo.ativo{
+    width: 93px
+}
