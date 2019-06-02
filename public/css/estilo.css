@@ -22,4 +22,5 @@
 }
 #logo.ativo{
     width: 93px
+    max-height: 310px;
 }
