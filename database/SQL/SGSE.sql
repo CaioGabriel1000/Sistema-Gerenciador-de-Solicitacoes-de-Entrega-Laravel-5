@@ -1,3 +1,7 @@
+CREATE DATABASE SGSE;
+
+USE SGSE;
+
 CREATE TABLE password_resets (
   email VARCHAR(255),
   token VARCHAR(255),

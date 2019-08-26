@@ -1,31 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
-	<div class="container">
-		<div class="container-fluid mobile-card-container cardajust">
-			<div class="row text-center flex-nowrap flex-sm-wrap">
-			@foreach ($categorias as $c)
-				<form method="POST" action="/buscar" id="buscar-{{$c->codigoCategoria}}" name="buscar-{{$c->codigoCategoria}}">
-				@csrf
-				<input type="hidden" name="codigoCategoria" id="codigoCategoria" value="{{$c->codigoCategoria}}">
-					<div class="p-2">
-						<div class="cardcat" onClick="document.forms['buscar-{{$c->codigoCategoria}}'].submit();">
-							<div class="card-body">
-								<div class="row justify-content-center">
-									@if ($filtrado == $c->codigoCategoria)
-										<b>{{$c->nome}}</b>
-									@else
-										{{$c->nome}}	
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			@endforeach
-			</div>
-		</div>
+	
 		<div class="row justify-content-left">
 			@foreach ($produtos as $p)
 			<div class="col-md-4 p-2">
@@ -54,12 +30,7 @@
 		@if (method_exists($produtos, 'links'))
 			{{ $produtos->links() }}
 		@endif
-		<a href="{{ url('/carrinho') }}">
-			<button type="button" class="btn btn-success" style="position: fixed; bottom: 5%; right: 5%; ">
-				<i class="fas fa-shopping-cart"></i>
-				<small>Carrinho</small>
-			</button>
-		</a>
+		
 	</div> <!-- fim container -->
 
 	<script src="{{ asset('js/bootstrap-input-spinner.js') }}"></script>
