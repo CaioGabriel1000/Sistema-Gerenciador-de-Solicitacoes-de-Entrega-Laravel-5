@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ config('app.name', 'Laravel') }}</title>
 	<link rel="icon" href="{{ asset('img/logo.png') }}">
-	<meta name="description" content="{{ config('app.name', 'Laravel') }} - app de delivery">
+	<meta name="description" content="{{ config('app.name', 'Laravel') }}">
 	<meta name="theme-color" content="#FFFFFF" />
 
     <!-- CSRF Token -->
@@ -41,14 +41,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet">
-    <style>
-    @media only screen and (max-width : 576px)
-    {
-        .mobile-card-container > .row {
-            overflow-x: auto;
-        }
-    }
-    </style>
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -104,62 +96,9 @@
                 @endguest
             </ul>
        </div>
-       <a class="navbar-brand" href="#">
-            <img src="{{url('img/') . '/logo.png'}}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-       </a>
-       <a href="{{ url('/carrinho') }}">			
-				<i class="fas fa-shopping-cart"></i>				
-		</a>
     </nav>
 
-    <!-- SEÇÃO COM PESQUISA E CATEGORIAS -->
-    <div id="mascarasecao"></div>
-    <section class="secao2">        
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquise por produtos" aria-label="Pesquisar">
-            <i style="position: absolute; margin-left: 93%;" class="fas fa-search right"></i>
-        </form>
-        <div class="container-fluid mobile-card-container cardajust">
-            <h1 class="text-center">Categorias</h1>
-			<div class="row text-center flex-nowrap flex-sm-wrap">
-			@foreach ($categorias as $c)
-				<form method="POST" action="/buscar" id="buscar-{{$c->codigoCategoria}}" name="buscar-{{$c->codigoCategoria}}">
-				@csrf
-				<input type="hidden" name="codigoCategoria" id="codigoCategoria" value="{{$c->codigoCategoria}}">
-					<div class="p-2">
-						<div class="cardcat" onClick="document.forms['buscar-{{$c->codigoCategoria}}'].submit();">
-							<div class="card-body">
-								<div class="row justify-content-center">
-									@if ($filtrado == $c->codigoCategoria)
-										<b>{{$c->nome}}</b>
-									@else
-										{{$c->nome}}	
-									@endif
-								</div>
-							</div>
-						</div>
-					</div>
-				</form>
-			@endforeach
-        </div>
-    </section>
-
-    <!-- SEÇÃO COM CATEGORIAS, AO IMPLEMENTAR UMA MODELAGEM DO BANCO SERÁ FEITO UM FOREACH -->
-    <section class="secao3">        
-        <div class="container-fluid">
-            
-            
-            
-
-        </div>
-    </section>
-    
-
-
-
-
-
-    <main class="py-4">
+    <main class="py-2">
         @yield('content')
     </main>
 
