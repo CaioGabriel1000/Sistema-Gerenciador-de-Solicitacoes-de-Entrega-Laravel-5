@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ config('app.name', 'Laravel') }}</title>
 	<link rel="icon" href="{{ asset('img/logo.png') }}">
-	<meta name="description" content="{{ config('app.name', 'Laravel') }}">
+	<meta name="description" content="{{ config('app.name', 'SGSE') }}">
 	<meta name="theme-color" content="#FFFFFF" />
 
     <!-- CSRF Token -->
@@ -17,19 +17,19 @@
 	<!-- iOS meta tags and icons -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'Laravel') }}">
+	<meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'SGSE') }}">
 	<link rel="apple-touch-icon" href="{{ asset('img/logo.png') }}">
 
 	<!-- Service Worker -->
 	<script>
 		// Register service worker.
 		if ('serviceWorker' in navigator) {
-		window.addEventListener('load', () => {
-			navigator.serviceWorker.register('{{ asset('/service-worker.js') }}')
-				.then((reg) => {
-				console.log('Service worker registered.', reg);
-				});
-		});
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('{{ asset('/service-worker.js') }}')
+                    .then((reg) => {
+                    console.log('Service worker registered.', reg);
+                    });
+            });
 		}
 	</script>
 
@@ -53,11 +53,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{ asset('img/logo.png') }}" width="30" height="30" alt="{{ config('app.name', 'SGSE') }}"> {{ config('app.name', 'SGSE') }}
+        </a>
+
+        <a class="navbar-brand d-md-none" href="{{ url('/carrinho') }}">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-justified w-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">Loja</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/carrinho') }}">Carrinho</a>
                 </li>
@@ -94,9 +99,36 @@
                         </div>
                     </li>
                 @endguest
+                <li class="nav-item d-none d-md-block">
+                    <form method="POST" action="{{ url('/pesquisar') }}">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input name="inputPesquisarProduto" type="text" class="form-control" placeholder="Pesquisar produtos" aria-label="Pesquisar produtos" aria-describedby="btnPesquisa1" value="@if (isset($produtoPesquisado)){{$produtoPesquisado}}@endif">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit" id="btnPesquisa1"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
             </ul>
        </div>
     </nav>
+
+    <div class="d-md-none">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <form method="POST" action="{{ url('/pesquisar') }}">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input name="inputPesquisarProduto" type="text" class="form-control" placeholder="Pesquisar produtos" aria-label="Pesquisar produtos" aria-describedby="btnPesquisa2" value="@if (isset($produtoPesquisado)){{$produtoPesquisado}}@endif">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="btnPesquisa2"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <main class="py-2">
         @yield('content')

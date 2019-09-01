@@ -25,6 +25,8 @@ Route::post('/addCarrinho','LojaController@adicionarCarrinho');
 
 Route::post('/buscar','LojaController@buscarCategoria');
 
+Route::post('/pesquisar','LojaController@pesquisarProduto');
+
 Route::post('/rmvCarrinho','CarrinhoController@removerCarrinho');
 
 Route::resource('/carrinho', 'CarrinhoController');

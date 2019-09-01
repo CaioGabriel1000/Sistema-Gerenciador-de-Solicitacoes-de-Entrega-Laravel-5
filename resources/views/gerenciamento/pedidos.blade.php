@@ -56,7 +56,7 @@
 							<ul class="list-group list-group-flush">
 								@foreach ($p->detalhes as $d)
 									<li class="box-shadow list-group-item d-flex justify-content-between">
-										<span class="d-none d-md-block">{{$d->quantidade}} X {{$d->produto}}</span>
+										<span>{{$d->quantidade}} X {{$d->produto}}</span>
 										<span>R$ {{$d->valorUnitario}}</span>
 									</li>
 								@endforeach

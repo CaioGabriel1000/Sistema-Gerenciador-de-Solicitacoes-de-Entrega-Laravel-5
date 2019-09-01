@@ -26,7 +26,9 @@ class LojaController extends Controller
 
 	public function buscarCategoria(Request $request){
 
-		$produtos = Produto::where('quantidadeEstoque', '>', 0)->where('codigoCategoria', $request->input('codigoCategoria'))->get();
+		$produtos = Produto::where('quantidadeEstoque', '>', 0)
+			->where('codigoCategoria', $request->input('codigoCategoria'))
+			->paginate(6);
 
 		$categorias = Categoria::all();
 
@@ -35,6 +37,25 @@ class LojaController extends Controller
 		$dados['categorias'] = $categorias;
 
 		$dados['filtrado'] = $request->input('codigoCategoria');
+
+		return view('loja', $dados);
+	}
+
+	public function pesquisarProduto(Request $request){
+
+		$produtos = Produto::where('quantidadeEstoque', '>', 0)
+			->where('nome', 'LIKE', '%' . $request->input('inputPesquisarProduto') . '%')
+			->paginate(6);
+
+		$categorias = Categoria::all();
+
+		$dados['produtos'] = $produtos;
+
+		$dados['categorias'] = $categorias;
+
+		$dados['produtoPesquisado'] = $request->input('inputPesquisarProduto');
+
+		$dados['filtrado'] = NULL;
 
 		return view('loja', $dados);
 	}
