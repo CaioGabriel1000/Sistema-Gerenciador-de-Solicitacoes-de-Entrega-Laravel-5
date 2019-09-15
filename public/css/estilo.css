@@ -1,16 +1,83 @@
-/* Cards da tela inicial da loja */
+/* !!! Abaixo estilização CSS que atingirá qualquer tamanho de tela */
+
+/* Cards da tela inicial da loja */    
 .cardcat{
-    width: 125px;
-    box-shadow: 0px 1px 3px 1px gray;
-    box-sizing: border-box;
-    height: 75px;
-    border-radius: 5px;
-    background-color: white;
-}
-.mobile-card-container > .row {
-    overflow-x: scroll;
-}
-/* Icone hamburguer da barra de navegação */
-.navbar-toggler {
-    border:0;
-}
+        width: 125px;
+        box-shadow: 0px 1px 3px 1px gray;
+        box-sizing: border-box;
+        height: 75px;
+        border-radius: 5px;
+        background-color: white;
+    }
+    .mobile-card-container > .row {
+        overflow-x: scroll;
+    }
+    /* Icone hamburguer da barra de navegação */
+    .navbar-toggler {
+        border:0;
+    }
+
+
+
+
+
+
+
+
+
+/* !!! Abaixo estilização CSS que atingirá telas com largura máxima de 767px */
+@media only screen and (max-width: 767px) {   
+
+/* Animação de menu oculto à esquerda */  
+#menu2{
+    margin-left: -510px;
+    margin-top: 169px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    position: absolute;
+    background-color: #fff;
+    width: 60%;
+    box-shadow: 1px 2px #d8dde2;
+    font-size: 37px;
+    transition: 1s;
+    z-index: 1000;
+}    
+#menu2.efeito{
+    margin-left: -48px;
+    margin-top: 169px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    position: fixed;
+    background-color: #fff;
+    width: 60%;
+    box-shadow: 1px 2px #d8dde2;
+    font-size: 37px;
+} 
+#mascaramenu{
+    background-color: #00000070;
+    width: 100%;
+    height: 811px;
+    position: absolute;
+    margin-top: 434px;
+    z-index: 999;
+    margin-left: -820px;
+    transition: 1.1s;
+} 
+#mascaramenu.efeito{
+    background-color: #00000070;
+    width: 100%;
+    height: 811px;
+    position: fixed;
+    margin-top: 434px;
+    z-index: 999;
+    margin-left: -48px;
+} 
+
+
+} /* Fecha estilização limitada à largura máxima de 767px */  
