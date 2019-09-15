@@ -12,7 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $quantidadeEstoque
  * @property string $descricao
  * @property int $codigoCategoria
+ * @property int $codigoGrupoProdutos
  * @property Categoria $categoria
+ * @property GrupoProdutos $grupoProdutos
  * @property PedidoProduto[] $pedidoProdutos
  */
 class Produto extends Model
@@ -49,6 +51,14 @@ class Produto extends Model
     public function categoria()
     {
         return $this->belongsTo('App\Categoria', 'codigoCategoria', 'codigoCategoria');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function grupoProdutos()
+    {
+        return $this->belongsTo('App\GrupoProdutos', 'codigoGrupoProdutos', 'codigoGrupoProdutos');
     }
 
     /**

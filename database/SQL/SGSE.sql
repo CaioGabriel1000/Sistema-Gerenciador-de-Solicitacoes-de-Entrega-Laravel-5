@@ -116,7 +116,13 @@ CREATE TABLE produto (
     valorUnitario FLOAT,
     quantidadeEstoque INT,
 	descricao VARCHAR(100),
-    codigoCategoria INT
+    codigoCategoria INT,
+    codigoGrupoProdutos INT NULL
+);
+
+CREATE TABLE grupoProdutos (
+    codigoGrupoProdutos INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(30)
 );
 
 CREATE TABLE categoria (
@@ -132,6 +138,19 @@ CREATE TABLE pagamento (
     valor FLOAT,
     situacao CHAR(1),
     codigoPedido INT
+);
+
+INSERT INTO funcionario VALUES (
+    1,
+    'Admin',
+    'sgse@email.com',
+    '$2y$10$vENuuefKxoPJOoz8..XsV.3RVUZUo04QtX/StYTqtSvI/9c200PaG',
+    1,
+    'A',
+    NULL,
+    1,
+    NOW(),
+    NOW()
 );
 
 CREATE TABLE telefoneEstabelecimento (
@@ -189,6 +208,10 @@ ALTER TABLE pedido ADD CONSTRAINT FK_Pedido_2
 ALTER TABLE produto ADD CONSTRAINT FK_Produto_1
     FOREIGN KEY (codigoCategoria)
     REFERENCES categoria (codigoCategoria);
+
+ALTER TABLE produto ADD CONSTRAINT FK_Produto_2
+    FOREIGN KEY (codigoGrupoProdutos)
+    REFERENCES grupoProdutos (codigoGrupoProdutos);
  
 ALTER TABLE pagamento ADD CONSTRAINT FK_Pagamento_1
     FOREIGN KEY (codigoPedido)
