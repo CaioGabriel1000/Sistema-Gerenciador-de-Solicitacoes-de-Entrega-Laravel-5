@@ -49,7 +49,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-faded px-5">
 
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Menu') }}">
+        <button id="menu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Menu') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -60,8 +60,8 @@
         <a class="navbar-brand d-md-none" href="{{ url('/carrinho') }}">
             <i class="fas fa-shopping-cart"></i>
         </a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div id="mascaramenu"></div>
+        <div id="menu2" class="navbar-collapse">
             <ul class="navbar-nav nav-justified w-100">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/carrinho') }}">Carrinho</a>
@@ -133,6 +133,20 @@
     <main class="py-2">
         @yield('content')
     </main>
+    <script>
+        $(document).ready(function(){
+        $("#menu").on("click",function(){
+        $("#menu2").toggleClass("efeito");
+        });
+        });
+
+        $(document).ready(function(){
+        $("#menu").on("click",function(){
+        $("#mascaramenu").toggleClass("efeito");
+        });
+        });
+    </script>
+    
 
 </div>
 </body>
