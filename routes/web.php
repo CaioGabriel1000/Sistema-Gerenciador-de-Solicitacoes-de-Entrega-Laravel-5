@@ -80,3 +80,5 @@ Route::post('/cancelarPedido','Gerenciamento\PedidoController@cancelar');
 Route::post('/entregarPedido','Gerenciamento\PedidoController@entregar');
 
 Route::post('/finalizarPedido','Gerenciamento\PedidoController@fechar');
+
+Route::resource('/gerenciamento/grupoprodutos', 'Gerenciamento\GrupoProdutosController');
