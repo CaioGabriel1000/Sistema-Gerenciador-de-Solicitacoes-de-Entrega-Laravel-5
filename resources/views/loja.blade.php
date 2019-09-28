@@ -35,7 +35,45 @@
 				<img src="{{ url('img/produtos/') . '/' . md5($p->codigoProduto) . '.png' }}" class="card-img-top h-auto w-100% mx-auto d-block" alt="Nome produto">
 					<div class="card-body">
 						<h5 class="card-title">{{$p->nome}}</h5>
+						@if ($p->codigoCategoria!=2)
+						<!-- Caso a categoria for diferente de pizza o valor não sera apresentado -->
 						<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
+						@endif
+						<!-- Caso a categoria for pizza será apresentado as opções de tamanho -->
+						@if ($p->codigoCategoria==2)
+						<div id="tamanhoprodt">
+						<div class="tab-content">
+						<!-- M -->
+						<div class="tab-pane fade show active" id="M">
+							<!-- Conforme o tamanho da pizza o preço irá mudar -->
+							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>	
+							M
+						</div>
+						<!-- G -->
+						<div class="tab-pane fade" id="G">
+							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
+							G							
+						</div>
+						<!-- GG -->
+						<div class="tab-pane fade" id="GG">
+							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
+							GG							
+						</div>
+					</div>
+					<div class="row d-flex">
+						<ul class="nav mb-3">
+							<li class="nav-item btn-group">
+								<button type="button" class="btn btn-light active nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#M" aria-selected="true" >M</button>
+							</li>
+							<li class="nav-item">
+							<button type="button" class="btn btn-light nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#G" aria-selected="true" >G</button>
+							</li>
+							<li class="nav-item">
+							<button type="button" class="btn btn-light nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#GG" aria-selected="true" >GG</button>
+							</li>
+						</ul>
+					</div>	
+					@endif						
 						<p class="card-text"><b>{{$p->categoria->nome}}</b> - {{$p->descricao}}</p>
 						<div class="row">
 							<div class="col">
