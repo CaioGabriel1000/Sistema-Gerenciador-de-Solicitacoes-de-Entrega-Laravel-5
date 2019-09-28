@@ -43,7 +43,9 @@ class GrupoProdutosController extends Controller
 			'descricao' => 'required',
 			'sku' => 'required',
 			'codigoCategoria' => 'required|exists:categoria',
-			'tamanhoGrupo' => 'required|min:1'
+			'nomeSubtipo' => 'required',
+			'valorUnitario' => 'required',
+			'quantidadeEstoque' => 'required',
 		]);
 
 		try {
@@ -59,18 +61,21 @@ class GrupoProdutosController extends Controller
 		$produto->sku = $request->input('sku');
 		$produto->codigoCategoria = $request->input('codigoCategoria');
 		$produto->codigoGrupoProdutos = $grupoProdutos->codigoGrupoProdutos;
+		$nomeSubtipo = $request->input('nomeSubtipo');
+		$valorUnitario = $request->input('valorUnitario');
+		$quantidadeEstoque = $request->input('quantidadeEstoque');
 
-		for ($i=1; $i <= $request->input('tamanhoGrupo'); $i++) {
+		foreach ($nomeSubtipo as $key => $nome) {
 			try {
-				$produto->nome = $grupoProdutos->nome . ' - ' . $request->input('nomeSubtipo' . $i);
-				$produto->valorUnitario = $request->input('valorUnitario' . $i);
-				$produto->quantidadeEstoque = $request->input('quantidadeEstoque' . $i);
+				$produto->nome = $grupoProdutos->nome . ' - ' . $nome;
+				$produto->valorUnitario = $valorUnitario[$key];
+				$produto->quantidadeEstoque = $quantidadeEstoque[$key];
 				$produto->save();
 			} catch (\Throwable $th) {
 				return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar produto! Tente novamente.');
 			}
 		}
-		
+
 		try {
 			if ($request->hasFile('imagemProduto')) {
 				$nomeArquivo = md5($grupoProdutos->codigoGrupoProdutos).".png";
