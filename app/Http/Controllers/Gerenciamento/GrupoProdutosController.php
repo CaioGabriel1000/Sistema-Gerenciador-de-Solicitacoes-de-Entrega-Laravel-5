@@ -56,24 +56,20 @@ class GrupoProdutosController extends Controller
 			return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar grupo de produtos! Tente novamente.');
 		}
 
-		$produto = new Produto();
-		$produto->descricao = $request->input('descricao');
-		$produto->sku = $request->input('sku');
-		$produto->codigoCategoria = $request->input('codigoCategoria');
-		$produto->codigoGrupoProdutos = $grupoProdutos->codigoGrupoProdutos;
-		$nomeSubtipo = $request->input('nomeSubtipo');
-		$valorUnitario = $request->input('valorUnitario');
-		$quantidadeEstoque = $request->input('quantidadeEstoque');
-
-		foreach ($nomeSubtipo as $key => $nome) {
-			try {
-				$produto->nome = $grupoProdutos->nome . ' - ' . $nome;
-				$produto->valorUnitario = $valorUnitario[$key];
-				$produto->quantidadeEstoque = $quantidadeEstoque[$key];
+		try {
+			foreach ($request->input('nomeSubtipo') as $key => $subtipo) {
+				$produto = new Produto();
+				$produto->descricao = $request->input('descricao');
+				$produto->sku = $request->input('sku');
+				$produto->codigoCategoria = $request->input('codigoCategoria');
+				$produto->codigoGrupoProdutos = $grupoProdutos->codigoGrupoProdutos;
+				$produto->nome = $grupoProdutos->nome . ' - ' . $subtipo;
+				$produto->valorUnitario = $request->input('valorUnitario.' . $key);
+				$produto->quantidadeEstoque = $request->input('quantidadeEstoque.' . $key);
 				$produto->save();
-			} catch (\Throwable $th) {
-				return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar produto! Tente novamente.');
 			}
+		} catch (\Throwable $th) {
+			return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar produto! Tente novamente.');
 		}
 
 		try {
