@@ -33,32 +33,24 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Código Produto</th>
+					<th>Código Grupo Produtos</th>
 					<th>Nome</th>
-					<th>SKU</th>
-					<th>Valor Unitário</th>
-					<th>Quantidade Estoque</th>
-					<th>Categoria</th>
 					<th>Opções</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 
-				@foreach ($produtos as $p)
+				@foreach ($grupoProdutos as $p)
 
 				<tr>
-					<td>{{$p->codigoProduto}}</td>
+					<td>{{$p->codigoGrupoProdutos}}</td>
 					<td>{{$p->nome}}</td>
-					<td>{{$p->sku}}</td>
-					<td>{{$p->valorUnitario}}</td>
-					<td>{{$p->quantidadeEstoque}}</td>
-					<td>{{$p->categoria->nome}}</td>
 					<td>
-						<a href="{{url('/gerenciamento/produto/').'/'.$p->codigoProduto.'/edit'}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><small>	Editar</small></a>
+						<a href="{{url('/gerenciamento/grupoprodutos/').'/'.$p->codigoGrupoProdutos.'/edit'}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i><small>	Editar</small></a>
 					</td>
 					<td>
-						<form method="POST" action="{{ action('Gerenciamento\ProdutoController@destroy',$p->codigoProduto) }}">
+						<form method="POST" action="{{ action('Gerenciamento\GrupoProdutosController@destroy',$p->codigoGrupoProdutos) }}">
 							@csrf
 							<input type="hidden" name="_method" value="DELETE">
 							<button class="btn btn-danger"><i class="fas fa-times"></i><small>	Excluir</small></button>
@@ -72,7 +64,7 @@
 		</table>
 	</div>
 
-	{{ $produtos->links() }}
+	{{ $grupoProdutos->links() }}
 
 </div>
 

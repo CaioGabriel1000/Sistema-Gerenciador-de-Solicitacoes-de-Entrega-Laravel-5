@@ -21,8 +21,8 @@ class GrupoProdutosController extends Controller
     }
 
 	public function index(){
-		$produtos = Produto::paginate(10);
-		$dados['produtos'] = $produtos;
+		$grupoProdutos = GrupoProdutos::paginate(10);
+		$dados['grupoProdutos'] = $grupoProdutos;
 		return view('gerenciamento.grupoprodutos', $dados);
 	}
 
@@ -33,8 +33,9 @@ class GrupoProdutosController extends Controller
 
 	public function edit($id){
 		$categorias = Categoria::all();
-		$produto = Produto::find($id);
-		return view('gerenciamento.editar_produto', compact('produto', 'id', 'categorias'));
+		$grupoProdutos = GrupoProdutos::find($id);
+		$produtos = Produto::where('codigoGrupoProdutos', $id)->get();
+		return view('gerenciamento.editar_grupoprodutos', compact('grupoProdutos', 'id', 'categorias', 'produtos'));
 	}
 
 	public function store(Request $request){
@@ -53,7 +54,7 @@ class GrupoProdutosController extends Controller
 			$grupoProdutos->nome = $request->input('nome');
 			$grupoProdutos->save();
 		} catch (\Throwable $th) {
-			return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar grupo de produtos! Tente novamente.');
+			return redirect('gerenciamento/grupoprodutos/create')->with('error','Erro ao cadastrar grupo de produtos! Tente novamente.');
 		}
 
 		try {
@@ -69,20 +70,18 @@ class GrupoProdutosController extends Controller
 				$produto->save();
 			}
 		} catch (\Throwable $th) {
-			return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar produto! Tente novamente.');
+			return redirect('gerenciamento/grupoprodutos/create')->with('error','Erro ao cadastrar produtos! Tente novamente.');
 		}
 
-		try {
-			if ($request->hasFile('imagemProduto')) {
-				$nomeArquivo = md5($grupoProdutos->codigoGrupoProdutos).".png";
-				$request->file('imagemProduto')->move(public_path('img/produtos/'), $nomeArquivo);
-			} else {
-				return redirect('gerenciamento/produto/create'.$id.'/edit')->with('error','Erro ao inserir a imagem do produto! Tente novamente.');
-			}
-			return redirect('gerenciamento/produto/create')->with('success','Produto cadastrado com sucesso!');
-		} catch (\Throwable $th) {
-			return redirect('gerenciamento/produto/create')->with('error','Erro ao cadastrar produto! Tente novamente.');
+		if ($request->hasFile('imagemProduto')) {
+			$nomeArquivo = "grupo-".md5($grupoProdutos->codigoGrupoProdutos).".png";
+			$request->file('imagemProduto')->move(public_path('img/produtos/'), $nomeArquivo);
+		} else {
+			return redirect('gerenciamento/grupoprodutos/create'.$id.'/edit')->with('error','Erro ao inserir a imagem do grupo de produtos! Tente novamente.');
 		}
+
+		return redirect('gerenciamento/grupoprodutos/create')->with('success','Grupo de produtos cadastrado com sucesso!');
+
 	}
 
 	public function update(Request $request, $id){
@@ -90,42 +89,67 @@ class GrupoProdutosController extends Controller
 			'nome' => 'required',
 			'descricao' => 'required',
 			'sku' => 'required',
-			'valorUnitario' => 'required|numeric',
-			'quantidadeEstoque' => 'required|integer',
 			'codigoCategoria' => 'required|exists:categoria',
+			'nomeSubtipo' => 'required',
+			'valorUnitario' => 'required',
+			'quantidadeEstoque' => 'required',
 		]);
-		$produto = Produto::find($id);
-		$produto->nome = $request->get('nome');
-		$produto->descricao = $request->get('descricao');
-		$produto->sku = $request->get('sku');
-		$produto->valorUnitario = $request->get('valorUnitario');
-		$produto->quantidadeEstoque = $request->get('quantidadeEstoque');
-		$produto->codigoCategoria = $request->get('codigoCategoria');
+
+		try {
+			$grupoProdutos = GrupoProdutos::find($id);
+			$grupoProdutos->nome = $request->input('nome');
+			$grupoProdutos->save();
+		} catch (\Throwable $th) {
+			return redirect('gerenciamento/grupoprodutos/'.$id.'/edit')->with('error','Erro atualizar grupo de produtos! Tente novamente.');
+		}
+
+		try {
+			foreach ($request->input('codigoProduto') as $key => $codigoProduto) {
+				if ($codigoProduto != 'NEW') {
+					$produto = Produto::find($codigoProduto);
+					$produto->descricao = $request->input('descricao');
+					$produto->sku = $request->input('sku');
+					$produto->codigoCategoria = $request->input('codigoCategoria');
+					$produto->nome = $grupoProdutos->nome . ' - ' . $request->input('nomeSubtipo.' . $key);
+					$produto->valorUnitario = $request->input('valorUnitario.' . $key);
+					$produto->quantidadeEstoque = $request->input('quantidadeEstoque.' . $key);
+					$produto->save();
+				} else {
+					$produtoNovo = new Produto();
+					$produtoNovo->descricao = $request->input('descricao');
+					$produtoNovo->sku = $request->input('sku');
+					$produtoNovo->codigoCategoria = $request->input('codigoCategoria');
+					$produtoNovo->codigoGrupoProdutos = $grupoProdutos->codigoGrupoProdutos;
+					$produtoNovo->nome = $grupoProdutos->nome . ' - ' . $request->input('nomeSubtipo.' . $key);
+					$produtoNovo->valorUnitario = $request->input('valorUnitario.' . $key);
+					$produtoNovo->quantidadeEstoque = $request->input('quantidadeEstoque.' . $key);
+					$produtoNovo->save();
+				}
+			}
+		} catch (\Throwable $th) {
+			return redirect('gerenciamento/grupoprodutos/'.$id.'/edit')->with('error','Erro ao atualizar produtos! Tente novamente.');
+		}
+
 		if ($request->hasFile('imagemProduto')) {
-			//$imagem = $request->file('imagemProduto');
-			$nomeArquivo = md5($id).".png";
+			$nomeArquivo = "grupo-".md5($grupoProdutos->codigoGrupoProdutos).".png";
 			$request->file('imagemProduto')->move(public_path('img/produtos/'), $nomeArquivo);
 		}
-		try {
-			$produto->save();
-			return redirect('gerenciamento/produto/'.$id.'/edit')->with('success','Produto atualizado com sucesso!');
-		} catch (\Throwable $th) {
-			return redirect('gerenciamento/produto/'.$id.'/edit')->with('error','Erro ao atualizar produto! Tente novamente.');
-		}
+
+		return redirect('gerenciamento/grupoprodutos/'.$id.'/edit')->with('success','Grupo de produtos atualizado com sucesso!');
 	}
 
 	public function destroy($id) {
-		$produto = Produto::find($id);
+		$grupoProdutos = GrupoProdutos::find($id);
 		try {
-			$produto->delete();
-			if (file_exists("img/produtos/".md5($produto->codigoProduto).".png")) {
-				unlink("img/produtos/".md5($produto->codigoProduto).".png");
+			Produto::where('codigoGrupoProdutos',$id)->delete();
+			GrupoProdutos::where('codigoGrupoProdutos',$id)->delete();
+			if (file_exists("grupo-".md5($grupoProdutos->codigoGrupoProdutos).".png")) {
+				unlink("grupo-".md5($grupoProdutos->codigoGrupoProdutos).".png");
 			}
-			return redirect()->back()->with('success','Produto deletado com sucesso!');
+			return redirect()->back()->with('success','Grupo de produtos deletado com sucesso!');
 		} catch (\Throwable $th) {
-			$produto->quantidadeEstoque = 0;
-			$produto->save();
-			return redirect()->back()->with('error','Não é possível deletar esse produto, pois está sendo usado em algum pedido! Portanto a quantidade em estoque foi atualizada para 0.');
+			Produto::where('codigoGrupoProdutos', $id)->update(['quantidadeEstoque' => 0]);
+			return redirect()->back()->with('error','Não é possível deletar esse grupo de produtos, pois está sendo usado em algum pedido! Portanto a quantidade em estoque foi atualizada para 0.');
 		}
 	}
 }

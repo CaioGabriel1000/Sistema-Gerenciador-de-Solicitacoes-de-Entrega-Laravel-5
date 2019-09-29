@@ -20,7 +20,7 @@ class ProdutoController extends Controller
     }
 
 	public function index(){
-		$produtos = Produto::paginate(10);
+		$produtos = Produto::where('codigoGrupoProdutos', NULL)->paginate(10);
 		$dados['produtos'] = $produtos;
 		return view('gerenciamento.produtos', $dados);
 	}
