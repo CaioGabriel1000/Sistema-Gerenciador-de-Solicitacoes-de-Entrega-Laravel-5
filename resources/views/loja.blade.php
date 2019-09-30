@@ -25,8 +25,8 @@
 				</form>
 			@endforeach
 			</div>
+					
 		</div>
-		
 		
 		<div class="row justify-content-left">
 			@foreach ($produtos as $p)
@@ -35,45 +35,7 @@
 				<img src="{{ url('img/produtos/') . '/' . md5($p->codigoProduto) . '.png' }}" class="card-img-top h-auto w-100% mx-auto d-block" alt="Nome produto">
 					<div class="card-body">
 						<h5 class="card-title">{{$p->nome}}</h5>
-						@if ($p->codigoCategoria!=2)
-						<!-- Caso a categoria for diferente de pizza o valor não sera apresentado -->
 						<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
-						@endif
-						<!-- Caso a categoria for pizza será apresentado as opções de tamanho -->
-						@if ($p->codigoCategoria==2)
-						<div id="tamanhoprodt">
-						<div class="tab-content">
-						<!-- M -->
-						<div class="tab-pane fade show active" id="M">
-							<!-- Conforme o tamanho da pizza o preço irá mudar -->
-							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>	
-							M
-						</div>
-						<!-- G -->
-						<div class="tab-pane fade" id="G">
-							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
-							G							
-						</div>
-						<!-- GG -->
-						<div class="tab-pane fade" id="GG">
-							<p class="card-text"><b>R$ {{$p->valorUnitario}}</b></p>
-							GG							
-						</div>
-					</div>
-					<div class="row d-flex">
-						<ul class="nav mb-3">
-							<li class="nav-item btn-group">
-								<button type="button" class="btn btn-light active nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#M" aria-selected="true" >M</button>
-							</li>
-							<li class="nav-item">
-							<button type="button" class="btn btn-light nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#G" aria-selected="true" >G</button>
-							</li>
-							<li class="nav-item">
-							<button type="button" class="btn btn-light nav-link" onclick="addCarrinho({{$p->codigoProduto}})" data-toggle="pill" href="#GG" aria-selected="true" >GG</button>
-							</li>
-						</ul>
-					</div>	
-					@endif						
 						<p class="card-text"><b>{{$p->categoria->nome}}</b> - {{$p->descricao}}</p>
 						<div class="row">
 							<div class="col">
@@ -85,6 +47,65 @@
 									<small>Adicionar ao carrinho</small>
 								</button>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- fim col -->
+			@endforeach
+			
+			@foreach ($grupoProdutos as $g)
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-2">
+				<div class="card">
+				<img src="{{ url('img/produtos/') . '/grupo-' . md5($g->codigoGrupoProdutos) . '.png' }}" class="card-img-top h-auto w-100% mx-auto d-block" alt="Nome produto">
+					<div class="card-body">
+						<h5 class="card-title">{{$g->nome}}</h5>
+						<ul class="nav nav-pills mb-1" id="pills-tab-{{$g->codigoGrupoProdutos}}" role="tablist">
+							@foreach ($g->produtos as $p)
+							<li class="nav-item">
+								@if ($p->codigoProduto == $g->produtos[0]->codigoProduto)
+									<a class="nav-link active" id="pills-tab-{{$p->codigoProduto}}" data-toggle="pill" href="#pill-{{$p->codigoProduto}}" role="tab" aria-controls="pill-{{$p->codigoProduto}}" aria-selected="true">{{substr($p->nome, strrpos($p->nome, ' - ') + 3, strlen($p->nome))}}</a>
+								@else
+									<a class="nav-link" id="pills-tab-{{$p->codigoProduto}}" data-toggle="pill" href="#pill-{{$p->codigoProduto}}" role="tab" aria-controls="pill-{{$p->codigoProduto}}" aria-selected="false">{{substr($p->nome, strrpos($p->nome, ' - ') + 3, strlen($p->nome))}}</a>
+								@endif
+							</li>
+							@endforeach
+						</ul>
+						<div class="tab-content" id="pills-tabContent-{{$g->codigoGrupoProdutos}}">
+						@foreach ($g->produtos as $p)
+							@if ($p->codigoProduto == $g->produtos[0]->codigoProduto)
+							<div class="tab-pane fade show active" id="pill-{{$p->codigoProduto}}" role="tabpanel" aria-labelledby="pills-tab-{{$p->codigoProduto}}">
+								<p><b>R$ {{$p->valorUnitario}}</b></p>
+								<p><b>{{$p->categoria->nome}}</b> - {{$p->descricao}}</p>
+								<div class="row">
+									<div class="col">
+										<input id="{{$p->codigoProduto}}" type="number" value="1" min="1" max="{{$p->quantidadeEstoque}}" step="1"/>
+									</div>
+									<div class="col">
+										<button type="button" class="btn btn-primary" onclick="addCarrinho({{$p->codigoProduto}})">
+											<i class="fas fa-cart-plus"></i>
+											<small>Adicionar ao carrinho</small>
+										</button>
+									</div>
+								</div>
+							</div>
+							@else
+							<div class="tab-pane fade" id="pill-{{$p->codigoProduto}}" role="tabpanel" aria-labelledby="pills-tab-{{$p->codigoProduto}}">
+								<p><b>R$ {{$p->valorUnitario}}</b></p>
+								<p><b>{{$p->categoria->nome}}</b> - {{$p->descricao}}</p>
+								<div class="row">
+									<div class="col">
+										<input id="{{$p->codigoProduto}}" type="number" value="1" min="1" max="{{$p->quantidadeEstoque}}" step="1"/>
+									</div>
+									<div class="col">
+										<button type="button" class="btn btn-primary" onclick="addCarrinho({{$p->codigoProduto}})">
+											<i class="fas fa-cart-plus"></i>
+											<small>Adicionar ao carrinho</small>
+										</button>
+									</div>
+								</div>
+							</div>
+							@endif
+						@endforeach
 						</div>
 					</div>
 				</div>

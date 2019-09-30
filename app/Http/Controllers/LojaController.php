@@ -5,21 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Produto;
 use App\Categoria;
+use App\GrupoProdutos;
 
 class LojaController extends Controller
 {
 
     public function index(){
 
-		$produtos = Produto::where('quantidadeEstoque', '>', 0)->paginate(6);
+		$produtos = Produto::where('quantidadeEstoque', '>', 0)->where('codigoGrupoProdutos', NULL)->paginate(6);
 
 		$categorias = Categoria::all();
+
+		$grupoProdutos = GrupoProdutos::with('Produtos')->paginate(6);
 
 		$dados['produtos'] = $produtos;
 
 		$dados['categorias'] = $categorias;
 
 		$dados['filtrado'] = NULL;
+
+		$dados['grupoProdutos'] = $grupoProdutos;
 
 		return view('loja', $dados);
 	}

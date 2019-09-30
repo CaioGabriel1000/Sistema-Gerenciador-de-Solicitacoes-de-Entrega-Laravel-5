@@ -42,6 +42,6 @@ class GrupoProdutos extends Model
      */
     public function produtos()
     {
-        return $this->hasMany('App\Produto', 'codigoGrupoProdutos', 'codigoGrupoProdutos');
+        return $this->hasMany('App\Produto', 'codigoGrupoProdutos', 'codigoGrupoProdutos')->where('quantidadeEstoque', '>', 0);
     }
 }
