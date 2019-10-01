@@ -164,15 +164,33 @@
 	</div>
 </div>
 <script>
+	x = 0;
 	function somarValorTotal(opcao) {
-		var valorAtual = parseFloat(document.getElementById("valorTotal").value);
-		var inicioStringFrete = opcao.indexOf("R$ ");
-		var valorFrete = opcao.substring((inicioStringFrete + 3), opcao.length);
-		var valor = parseFloat(valorAtual) + parseFloat(valorFrete);
-		if (valor > 0) {
-			document.getElementById("valorTotal").value = valor;
-			document.getElementById("valorTotal").placeholder = "R$ " + valor;
+
+		if (x < 1){
+			var valorAtual = parseFloat(document.getElementById("valorTotal").value);
+			var inicioStringFrete = opcao.indexOf("R$ ");
+			var valorFrete = opcao.substring((inicioStringFrete + 3), opcao.length);
+			var valor = parseFloat(valorAtual) + parseFloat(valorFrete);
+			if (valor > 0) {
+				document.getElementById("valorTotal").value = valor;
+				document.getElementById("valorTotal").placeholder = "R$ " + valor;
+			}
+			frete = valorFrete;
 		}
+		if(x >= 1){
+			var valorAtual = parseFloat(document.getElementById("valorTotal").value);
+			var inicioStringFrete = opcao.indexOf("R$ ");
+			var valorFrete = opcao.substring((inicioStringFrete + 3), opcao.length);
+			var valor = parseFloat(valorAtual) + parseFloat(valorFrete);
+			
+			if (valor > 0) {
+				document.getElementById("valorTotal").value = (valor - frete);
+				document.getElementById("valorTotal").placeholder = "R$ " + valor;
+			}
+			frete = valorFrete;
+		}		
+		x = 1;
 	}
 </script>
 @endsection
