@@ -17,6 +17,13 @@ class CreateCategoriaTable extends Migration {
 			$table->integer('codigoCategoria', true);
 			$table->string('nome', 45)->nullable();
 		});
+
+		// Inserindo categoria padrão
+		DB::table('categoria')->insert(
+			array(
+				'nome' => 'categoria 1'
+			)
+		);
 	}
 
 

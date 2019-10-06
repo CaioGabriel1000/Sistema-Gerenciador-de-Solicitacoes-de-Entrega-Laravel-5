@@ -1,4 +1,4 @@
-const staticCacheName = 'SGSE-V0';
+const staticCacheName = 'SGSE-V1';
 const assets = [
 	'/css/bootstrap.min.css',
 	'/img/logo.png',

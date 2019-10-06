@@ -24,6 +24,22 @@ class CreateFuncionarioTable extends Migration {
 			$table->integer('codigoEstabelecimento')->nullable()->index('FK_Funcionario_1');
 			$table->timestamps();
 		});
+
+		// Inserindo funcionario padrão
+		// Senha padrão utilizando o .env padrão = "you shall not pass"
+		DB::table('funcionario')->insert(
+			array(
+				'name' => 'SGSE',
+				'email' => 'sgse@email.com',
+				'password' => '$2y$10$UhUkjCc3qHmZgTc7mlFjf./JQBZvT5dfTdfzjginynEMwatz/7CgG',
+				'administrador' => 1,
+				'situacao' => 'A',
+				'remember_token' => NULL,
+				'codigoEstabelecimento' => 1,
+				'created_at' => NULL,
+				'updated_at' => NULL
+			)
+		);
 	}
 
 

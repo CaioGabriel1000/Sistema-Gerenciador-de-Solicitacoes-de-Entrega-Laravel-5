@@ -20,6 +20,16 @@ class CreateEntregadorTable extends Migration {
 			$table->integer('fimJornadaTrabalho')->nullable();
 			$table->integer('codigoEstabelecimento')->nullable()->index('FK_Entregador_1');
 		});
+
+		// Inserindo entregador padrão
+		DB::table('entregador')->insert(
+			array(
+				'nome' => 'entregador',
+				'inicioJornadaTrabalho' => 0,
+				'fimJornadaTrabalho' => 1440,
+				'codigoEstabelecimento' => 1
+			)
+		);
 	}
 
 

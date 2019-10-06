@@ -1,18 +1,52 @@
 {
 	"name": "SGSE",
 	"short_name": "SGSE",
-	"icons": [{
+	"theme_color": "#f2f2f2",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"Scope": "/",
+	"start_url": "/",
+	"icons": [
+		{
+		"src": "/img/logo.png",
+		"sizes": "72x72",
+		"type": "image/png"
+		},
+		{
+		"src": "/img/logo.png",
+		"sizes": "96x96",
+		"type": "image/png"
+		},
+		{
+		"src": "/img/logo.png",
+		"sizes": "128x128",
+		"type": "image/png"
+		},
+		{
+		"src": "/img/logo.png",
+		"sizes": "144x144",
+		"type": "image/png"
+		},
+		{
+		"src": "/img/logo.png",
+		"sizes": "152x152",
+		"type": "image/png"
+		},
+		{
 		"src": "/img/logo.png",
 		"sizes": "192x192",
 		"type": "image/png"
-	},
-	{
+		},
+		{
+		"src": "/img/logo.png",
+		"sizes": "384x384",
+		"type": "image/png"
+		},
+		{
 		"src": "/img/logo.png",
 		"sizes": "512x512",
 		"type": "image/png"
-	}],
-	"start_url": "/",
-	"display": "standalone",
-	"background_color": "#FFFFFF",
-	"theme_color": "#FFFFFF"
+		}
+	],
+	"splash_pages": null
 }

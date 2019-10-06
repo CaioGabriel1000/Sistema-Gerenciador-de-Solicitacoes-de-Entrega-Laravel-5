@@ -17,7 +17,7 @@ class CreateProdutoTable extends Migration {
 			$table->integer('codigoProduto', true);
 			$table->string('nome', 45)->nullable();
 			$table->string('sku', 10)->nullable();
-			$table->float('valorUnitario', 10, 0)->nullable();
+			$table->float('valorUnitario', 8, 2)->nullable();
 			$table->integer('quantidadeEstoque')->nullable();
 			$table->string('descricao', 100)->nullable();
 			$table->integer('codigoCategoria')->nullable()->index('FK_Produto_1');

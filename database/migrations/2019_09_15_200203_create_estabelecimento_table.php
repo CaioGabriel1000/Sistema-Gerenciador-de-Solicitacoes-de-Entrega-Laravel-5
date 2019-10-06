@@ -23,6 +23,19 @@ class CreateEstabelecimentoTable extends Migration {
 			$table->integer('diasFuncionamento')->nullable();
 			$table->char('identidadeVisual', 1)->nullable();
 		});
+
+		// Inserindo estabelecimento padrão
+		DB::table('estabelecimento')->insert(
+			array(
+				'razaoSocial' => 'SGSE',
+				'nomeFantasia' => 'SGSE',
+				'cnpj' => 12345678901234,
+				'inicioJornadaFuncionamento' => 0,
+				'fimJornadaFuncionamento' => 1440,
+				'diasFuncionamento' => 127,
+				'identidadeVisual' => 'G'
+			)
+		);
 	}
 
 

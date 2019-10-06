@@ -19,6 +19,15 @@ class CreateCidadeTable extends Migration {
 			$table->char('estado', 2)->nullable();
 			$table->float('valorFrete', 10, 0)->nullable();
 		});
+
+		// Inserindo cidade padrão
+		DB::table('cidade')->insert(
+			array(
+				'nome' => 'Belo Horizonte',
+				'estado' => 'MG',
+				'valorFrete' => 0
+			)
+		);
 	}
 
 

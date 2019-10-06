@@ -16,9 +16,18 @@ class CreateBairroTable extends Migration {
 		{
 			$table->integer('codigoBairro', true);
 			$table->string('nome', 45)->nullable();
-			$table->float('valorFrete', 10, 0)->nullable();
+			$table->float('valorFrete', 8, 2)->nullable();
 			$table->integer('codigoCidade')->nullable()->index('FK_Bairro_1');
 		});
+
+		// Inserindo bairro padrão
+		DB::table('bairro')->insert(
+			array(
+				'nome' => 'Centro',
+				'valorFrete' => 0,
+				'codigoCidade' => 1
+			)
+		);
 	}
 
 
