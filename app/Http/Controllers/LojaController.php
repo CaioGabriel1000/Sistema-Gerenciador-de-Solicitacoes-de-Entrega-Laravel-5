@@ -37,11 +37,16 @@ class LojaController extends Controller
 
 		$categorias = Categoria::all();
 
+		$grupoProdutos = GrupoProdutos::with('Produtos')
+			->paginate(6);
+
 		$dados['produtos'] = $produtos;
 
 		$dados['categorias'] = $categorias;
 
 		$dados['filtrado'] = $request->input('codigoCategoria');
+
+		$dados['grupoProdutos'] = $grupoProdutos;
 
 		return view('loja', $dados);
 	}
@@ -54,6 +59,10 @@ class LojaController extends Controller
 
 		$categorias = Categoria::all();
 
+		$grupoProdutos = GrupoProdutos::with('Produtos')
+			->where('nome', 'LIKE', '%' . $request->input('inputPesquisarProduto') . '%')
+			->paginate(6);
+
 		$dados['produtos'] = $produtos;
 
 		$dados['categorias'] = $categorias;
@@ -61,6 +70,8 @@ class LojaController extends Controller
 		$dados['produtoPesquisado'] = $request->input('inputPesquisarProduto');
 
 		$dados['filtrado'] = NULL;
+
+		$dados['grupoProdutos'] = $grupoProdutos;
 
 		return view('loja', $dados);
 	}

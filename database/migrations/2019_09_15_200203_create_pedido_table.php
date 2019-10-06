@@ -15,7 +15,7 @@ class CreatePedidoTable extends Migration {
 		Schema::create('pedido', function(Blueprint $table)
 		{
 			$table->integer('codigoPedido', true);
-			$table->float('valorTotal', 10, 0)->nullable();
+			$table->float('valorTotal', 8, 2)->nullable();
 			$table->char('formaPagamento', 1)->nullable();
 			$table->string('observacoes', 50)->nullable();
 			$table->char('situacao', 1)->nullable();

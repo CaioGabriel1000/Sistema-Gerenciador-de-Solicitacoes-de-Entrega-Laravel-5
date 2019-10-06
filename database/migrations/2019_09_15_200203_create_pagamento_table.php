@@ -15,7 +15,7 @@ class CreatePagamentoTable extends Migration {
 		Schema::create('pagamento', function(Blueprint $table)
 		{
 			$table->integer('codigoPagamento', true);
-			$table->float('valor', 10, 0)->nullable();
+			$table->float('valor', 8, 2)->nullable();
 			$table->char('situacao', 1)->nullable();
 			$table->integer('codigoPedido')->nullable()->index('FK_Pagamento_1');
 		});
