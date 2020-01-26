@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 /**
  * @property int $codigoCliente
@@ -20,18 +21,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Cliente extends Authenticatable
 {
 
-	use Notifiable;
+    use Notifiable;
+    use HasPushSubscriptions;
 
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'cliente';
 
     /**
      * The primary key for the model.
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'codigoCliente';

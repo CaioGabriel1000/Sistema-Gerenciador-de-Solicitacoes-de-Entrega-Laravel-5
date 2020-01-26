@@ -14,8 +14,10 @@ use App\Endereco;
 use App\Entregador;
 use App\Pagamento;
 use App\Entrega;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\PushPedidoCliente;
+use Notification;
+use App\Cliente;
 
 class PedidoController extends Controller
 {
@@ -99,7 +101,8 @@ class PedidoController extends Controller
 			$response = array(
 				'status' => 'success',
 				'msg' => 'Pedido saiu para entrega!'
-			);
+            );
+            Notification::send(Cliente::find($pedido->codigoCliente),new PushPedidoCliente);
 			return response()->json($response);
 		} catch (\Throwable $th) {
 			$response = array(

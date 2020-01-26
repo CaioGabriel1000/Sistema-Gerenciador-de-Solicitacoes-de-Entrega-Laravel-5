@@ -17,7 +17,6 @@ use App\Funcionario;
 use App\Notifications\PushPedidoFuncionario;
 use Notification;
 use Auth;
-use App\Notifications\PushDemo;
 
 
 class PedidoController extends Controller
@@ -36,7 +35,7 @@ class PedidoController extends Controller
     public function index()
     {
 
-		$dados['pedidos'] = Pedido::where('codigoCliente', Auth::id())->get();
+		$dados['pedidos'] = Pedido::where('codigoCliente', Auth::id())->orderBy('updated_at', 'desc')->get();
 
 		foreach ($dados['pedidos'] as $key => $value) {
 			$dados['pedidos'][$key]['detalhes'] = Pedido::pedidoCliente($value->codigoPedido);

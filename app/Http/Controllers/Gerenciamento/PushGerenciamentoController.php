@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gerenciamento;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Auth;
-use App\Funcionario;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
-use Notification;
-
 
 class PushGerenciamentoController extends Controller
 {
