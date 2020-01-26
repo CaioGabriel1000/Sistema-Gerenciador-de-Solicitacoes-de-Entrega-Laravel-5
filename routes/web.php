@@ -41,7 +41,7 @@ Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
 
 Route::post('/addPedidoRetirar','PedidoController@salvarPedidoRetirar');
 
-Route::post('/pushGerenciamento','PushGerenciamentoController@store');
+Route::post('/push','PushLojaController@store');
 
 /*
 |--------------------------------------------------------------------------
@@ -84,3 +84,5 @@ Route::post('/entregarPedido','Gerenciamento\PedidoController@entregar');
 Route::post('/finalizarPedido','Gerenciamento\PedidoController@fechar');
 
 Route::resource('/gerenciamento/grupoprodutos', 'Gerenciamento\GrupoProdutosController');
+
+Route::post('/pushGerenciamento','Gerenciamento\PushGerenciamentoController@store');
