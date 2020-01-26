@@ -13,8 +13,12 @@ use App\Endereco;
 use App\Entregador;
 use App\Pagamento;
 use App\Entrega;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Funcionario;
+use App\Notifications\PushPedidoFuncionario;
+use Notification;
+use Auth;
+use App\Notifications\PushDemo;
+
 
 class PedidoController extends Controller
 {
@@ -119,7 +123,7 @@ class PedidoController extends Controller
 			$codigoEndereco = Endereco::create($endereco)->codigoEndereco;
 
 			$codigoEntregador = Entregador::find(1)->codigoEntregador;
-			
+
 			$entrega = array(
 				'situacao' => 'A',
 				'codigoPedido' => $codigoPedido,
@@ -137,15 +141,17 @@ class PedidoController extends Controller
 
 			Pagamento::create($pagamento);
 
-			$request->session()->forget('carrinho');
+            $request->session()->forget('carrinho');
+
+            Notification::send(Funcionario::all(),new PushPedidoFuncionario);
 
 			return redirect('pedidos');
-			
+
 		} else {
 			echo 'Ocorreu um erro ao salvar o pedido! Favor contate o estabelecimento para que isso seja corrigido!';
 		}
 	}
-	
+
 	public function salvarPedidoRetirar(Request $request)
     {
 
@@ -181,10 +187,12 @@ class PedidoController extends Controller
 				PedidoProduto::create($pedidoProduto);
 			}
 
-			$request->session()->forget('carrinho');
+            $request->session()->forget('carrinho');
+
+            Notification::send(Funcionario::all(),new PushPedidoFuncionario);
 
 			return redirect('pedidos');
-			
+
 		} else {
 			echo 'Ocorreu um erro ao salvar o pedido! Favor contate o estabelecimento para que isso seja corrigido!';
 		}

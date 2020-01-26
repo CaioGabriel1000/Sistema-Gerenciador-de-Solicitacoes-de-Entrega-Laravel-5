@@ -1,4 +1,4 @@
-const staticCacheName = 'SGSE-V1';
+const staticCacheName = 'SGSE-V2';
 const assets = [
 	'/css/bootstrap.min.css',
 	'/img/logo.png',
@@ -32,4 +32,21 @@ self.addEventListener('fetch', evt => {
 			return cacheRes || fetch(evt.request);
 		})
 	);
+});
+
+ // push notifications event
+self.addEventListener('push', function (e) {
+    if (!(self.Notification && self.Notification.permission === 'granted')) {
+        return;
+    }
+
+    if (e.data) {
+        var msg = e.data.json();
+        console.log(msg)
+        e.waitUntil(self.registration.showNotification(msg.title, {
+            body: msg.body,
+            icon: msg.icon,
+            actions: msg.actions
+        }));
+    }
 });

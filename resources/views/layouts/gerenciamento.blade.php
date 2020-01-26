@@ -13,27 +13,121 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/canvas2image@1.0.5/canvas2image.min.js"></script>
+
+	<!-- Service Worker e Notificação -->
+	<script>
+        function urlBase64ToUint8Array(base64String) {
+            var padding = '='.repeat((4 - base64String.length % 4) % 4);
+            var base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+
+            var rawData = window.atob(base64);
+            var outputArray = new Uint8Array(rawData.length);
+
+            for (var i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+        function storePushSubscription(pushSubscription) {
+            const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+
+            fetch('/pushGerenciamento', {
+                method: 'POST',
+                body: JSON.stringify(pushSubscription),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': token
+                }
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        }
+
+        function subscribeUser() {
+            navigator.serviceWorker.ready
+                .then((registration) => {
+                    const subscribeOptions = {
+                        userVisibleOnly: true,
+                        applicationServerKey: urlBase64ToUint8Array(
+                            '{{env('VAPID_PUBLIC_KEY')}}'
+                        )
+                    };
+
+                    return registration.pushManager.subscribe(subscribeOptions);
+                })
+                .then((pushSubscription) => {
+                    console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+                    storePushSubscription(pushSubscription);
+                });
+        }
+
+        function initPush() {
+            if (!navigator.serviceWorker.ready) {
+                return;
+            }
+
+            new Promise(function (resolve, reject) {
+                const permissionResult = Notification.requestPermission(function (result) {
+                    resolve(result);
+                });
+
+                if (permissionResult) {
+                    permissionResult.then(resolve, reject);
+                }
+            })
+                .then((permissionResult) => {
+                    if (permissionResult !== 'granted') {
+                        throw new Error('Permissão para enviar notificações foi negada!');
+                    }
+                    subscribeUser();
+                });
+        }
+
+		// Register service worker.
+		if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('{{ asset('/service-worker.js') }}')
+                    .then((reg) => {
+                    console.log('Service worker registered.', reg);
+                    });
+            });
+            @auth
+            initPush();
+            @endauth
+		}
+	</script>
 
 	<script language="javascript">
 		(function($){
 			$.fn.createPdf = function(parametros) {
-				
-				var config = {              
+
+				var config = {
 					'fileName':'html-to-pdf'
 				};
-				
+
 				if (parametros){
 					$.extend(config, parametros);
-				}                            
-	
+				}
+
 				var quotes = document.getElementById($(this).attr('id'));
-	
+
 				html2canvas(quotes, {
 					onrendered: function(canvas) {
 						var pdf = new jsPDF('p', 'pt', 'letter');
-	
+
 						for (var i = 0; i <= quotes.clientHeight/980; i++) {
 							var srcImg  = canvas;
 							var sX      = 0;
@@ -44,32 +138,32 @@
 							var dY      = 0;
 							var dWidth  = 900;
 							var dHeight = 980;
-	
+
 							window.onePageCanvas = document.createElement("canvas");
 							onePageCanvas.setAttribute('width', 900);
 							onePageCanvas.setAttribute('height', 980);
 							var ctx = onePageCanvas.getContext('2d');
 							ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
-	
+
 							var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
 							var width         = onePageCanvas.width;
 							var height        = onePageCanvas.clientHeight;
-	
+
 							if (i > 0) {
 								pdf.addPage(612, 791);
 							}
-	
+
 							pdf.setPage(i+1);
 							pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
 						}
-	
+
 						pdf.autoPrint();
 						window.open(pdf.output('bloburl'), '_blank');
 					}
 				});
 			};
 		})(jQuery);
-			
+
 		function createPDF(codigoPedido) {
 			$('#pedido_'+codigoPedido).createPdf({
 				'fileName' : 'pedido_'+codigoPedido

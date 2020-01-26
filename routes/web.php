@@ -41,6 +41,8 @@ Route::post('/addPedidoEntrega','PedidoController@salvarPedidoEntrega');
 
 Route::post('/addPedidoRetirar','PedidoController@salvarPedidoRetirar');
 
+Route::post('/pushGerenciamento','PushGerenciamentoController@store');
+
 /*
 |--------------------------------------------------------------------------
 | Rotas do Gerenciamento

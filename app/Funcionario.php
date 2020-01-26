@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 /**
  * @property int $codigoFuncionario
@@ -22,20 +23,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Funcionario extends Authenticatable
 {
 
-	use Notifiable;
+    use Notifiable;
+    use HasPushSubscriptions;
 
 	protected $guard = 'funcionarioWeb';
 
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'funcionario';
 
     /**
      * The primary key for the model.
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'codigoFuncionario';
